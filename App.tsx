@@ -1,37 +1,25 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+
 import SplashScreen from 'react-native-splash-screen';
+import Login from './Src/Screens/Auth/Login';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-
+const Stack = createNativeStackNavigator()
 
 function App(){
 useEffect(()=>{
 SplashScreen.hide()
 },[])
+return (
+  <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={Login}/>
+    </Stack.Navigator>
+
+  </NavigationContainer>
+)
 }
 
 
