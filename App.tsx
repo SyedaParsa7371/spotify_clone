@@ -4,8 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 
 import SplashScreen from 'react-native-splash-screen';
-import Login from './Src/Screens/Auth/IntialScreen';
+import Login from './Src/Screens/Auth/Login';
 import IntialScreen from './Src/Screens/Auth/IntialScreen';
+import SignUp from './Src/Screens/Auth/SignUp';
+import HomeScreen from './Src/Screens/Home';
 
 const Stack = createNativeStackNavigator()
 
@@ -17,6 +19,10 @@ return (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="IntialScreen" component={IntialScreen}  options={{ headerShown: false }} />
+      <Stack.Screen name="Signup" component={SignUp} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={Login}  options={{ headerShown: false }}/>
+      <Stack.Screen name="HomeScreen" component={HomeScreen}  />
+
     </Stack.Navigator>
 
   </NavigationContainer>

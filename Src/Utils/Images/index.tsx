@@ -3,4 +3,6 @@ export const icons = {
     googleIcon: require('../Images/google_icon.png'),
     faceBook: require('../Images/facebooks_icon.png'),
     phoneIcon: require('../Images/phones_icon.png'),
+    login: require('../Images/login_form.png'),
+
 }

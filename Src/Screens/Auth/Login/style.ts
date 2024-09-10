@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         fontSize:22,
         fontWeight:"bold",
         textAlign:"center",
-        marginBottom:20
+        marginBottom:130
     },
     textError:{
         color:"#c50a0a",

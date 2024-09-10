@@ -3,7 +3,9 @@ import Button, { ButtonsLogin, ButtonsSignUp } from "../../../Components/Button"
 import styles from "./style"
 import IconButton from "../../../Components/IconButton"
 import { icons } from "../../../Utils/Images"
-function IntialScreen() {
+import { FC } from "react"
+import { IAuthNavigation } from "../../../Utils/Interface"
+const IntialScreen:FC<IAuthNavigation>=({navigation})=> {
     return (
         <View style={styles.rootContainer}>
             <View style={styles.imageContainer}>
@@ -17,12 +19,15 @@ function IntialScreen() {
                 </View>
 
                 <View style={styles.buttons}>
-                    <ButtonsSignUp >Sign up free</ButtonsSignUp>
+                    <ButtonsSignUp 
+                          onPress={() => navigation.navigate('Signup')}>
+                Sign up free</ButtonsSignUp>
                     <Button image={icons.phoneIcon}>Continue with phone number</Button>
                 
                     <Button image={icons.googleIcon}>Continue with Google</Button>
                     <Button image={icons.faceBook} >Continue with FaceBook</Button>
-                    <ButtonsLogin >Log In</ButtonsLogin>
+                    <ButtonsLogin 
+                     onPress={() => navigation.navigate('Login')}>Log In</ButtonsLogin>
                 </View>
             </View>
         </View>

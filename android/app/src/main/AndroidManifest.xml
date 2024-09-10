@@ -20,6 +20,8 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+          <meta-data android:name="android.app.splash_screen"
+              android:resource="@layout/launch_screen" />
       </activity>
     </application>
 </manifest>

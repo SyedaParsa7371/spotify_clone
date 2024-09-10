@@ -24,25 +24,49 @@ const Buttons: FC<IButton> = ({ children, image, onPress, }) => {
 }
 export default Buttons
 
-export const ButtonsSignUp: FC<IButton> = ({ children }) => {
+export const ButtonsSignUp: FC<IButton> = ({ children,onPress }) => {
     return (
         <View>
-            <View style={styles.buttonSignup}>
+            <View style={styles.buttonSignup} >
                 <View>
-                    <TouchableOpacity ><Text style={styles.TextSign}>{children}</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={onPress}><Text style={styles.TextSign}>{children}</Text></TouchableOpacity>
                 </View>
             </View>
         </View>
     )
 }
-export const ButtonsLogin: FC<IButton> = ({ children }) => {
+export const ButtonsLogin: FC<IButton> = ({ children,onPress }) => {
     return (
         <View>
             <View style={styles.buttonlogin}>
                 <View>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={onPress}>
                         <Text style={styles.textlogin}>{children}</Text>
                         </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+    )
+}
+export const ButtonsLoginss: FC<IButton> = ({ children,onPress }) => {
+    return (
+        <View>
+            <View style={styles.buttonlogins}>
+                <View>
+                    <TouchableOpacity onPress={onPress}>
+                        <Text style={styles.textlogins}>{children}</Text>
+                        </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+    )
+}
+export const ButtonsSignUps: FC<IButton> = ({ children,onPress }) => {
+    return (
+        <View>
+            <View style={styles.buttonSignups} >
+                <View>
+                    <TouchableOpacity onPress={onPress}><Text style={styles.TextSigns}>{children}</Text></TouchableOpacity>
                 </View>
             </View>
         </View>

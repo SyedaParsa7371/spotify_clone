@@ -6,5 +6,10 @@ export const styles = StyleSheet.create({
         width: 100,
        marginHorizontal:150
 
+    },
+    imageContainers: {
+        height: 180,
+        width: 100,
+        marginLeft:70
     }
 })

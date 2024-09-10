@@ -8,7 +8,7 @@ import { FC } from "react";
 import { IAuthNavigation } from "../../../Utils/Interface";
 import InputText from "../../../Components/TextInput";
 
-const SignUp: FC<IAuthNavigation> = ({ navigation }) => {
+const Login: FC<IAuthNavigation> = ({ navigation }) => {
   
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -17,12 +17,9 @@ const SignUp: FC<IAuthNavigation> = ({ navigation }) => {
 
 
   const validateInputs = () => {
-    const newErrors: { name?: string; email?: string; password?: string } = {};
+    const newErrors: {  email?: string; password?: string } = {};
 
-    if (!name) {
-      newErrors.name = "* Name is required";
-    }
-
+  
     if (!email) {
       newErrors.email = "* Email is required";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -44,7 +41,7 @@ const SignUp: FC<IAuthNavigation> = ({ navigation }) => {
     if (validateInputs()) {
     
       console.log("Sign up successful");
-      navigation.navigate('Login')
+      navigation.navigate('HomeScreen')
    
     }
   };
@@ -60,10 +57,7 @@ const SignUp: FC<IAuthNavigation> = ({ navigation }) => {
         <View>
           <Text style={styles.text}>Enjoy Listening To Music</Text>
         </View>
-        <View style={styles.textcontainer}>
-          <InputText placeholder="Enter Your Name" value={name} onChangeText={setName} />
-          {errors.name && <Text style={styles.textError}>{errors.name}</Text>}
-        </View>
+     
         <View style={styles.textcontainer}>
           <InputText placeholder="Enter Your Email" value={email} onChangeText={setEmail} />
           {errors.email && <Text style={styles.textError}>{errors.email}</Text>}
@@ -73,14 +67,16 @@ const SignUp: FC<IAuthNavigation> = ({ navigation }) => {
           {errors.password && <Text style={styles.textError}>{errors.password}</Text>}
         </View>
         <View style={{ marginTop: 30 }}>
-          <ButtonsSignUps onPress={handleSignUp}>Sign Up</ButtonsSignUps>
+          <ButtonsSignUps onPress={handleSignUp}>Log In</ButtonsSignUps>
         </View>
         <View>
-          <ButtonsLoginss  onPress={() => navigation.navigate("Login")}>Already Have An Account? Log In</ButtonsLoginss>
+        <ButtonsLoginss onPress={() => navigation.navigate("Signup")}>
+            Don't Have An Account? Sign Up
+          </ButtonsLoginss>
         </View>
       </View>
     </View>
   );
 };
 
-export default SignUp;
+export default Login;

@@ -33,12 +33,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#0c0b0b",
     },
-    TextSigns: {
-        fontSize: 20,
-        fontWeight: "bold",
-        textAlign: "center",
-        color: "white",
-    },
     images: {
         height: 35,
         width: 35,
@@ -62,33 +56,6 @@ const styles = StyleSheet.create({
         color: Colors.primarywhite,
         textAlign: "center",
      
-    },
-    buttonlogins: {
-        margin: 5,
-        justifyContent: "center",
-        padding: 5,
-        borderRadius: 30,
-        color:Colors.primarywhite
-    },
-    textlogins:{
-        fontSize: 16,
-        color: Colors.primarywhite,
-        textAlign: "center",
-     
-    },
-    buttonSignups: {
-        borderWidth: 1,
-        borderColor: Colors.primarywhite,
-        margin: 2,
-        justifyContent: "center",
-        padding: 8,
-        borderRadius: 30,
-        marginLeft:40,
-        width:'80%',
-        backgroundColor: Colors.sigunup,
-    },
-    textError:{
-        color:'red'
     }
 });
 

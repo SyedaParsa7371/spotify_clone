@@ -1,16 +1,21 @@
-import { FC } from "react"
-import { TextInput } from "react-native"
-import { IInputText } from "../../Utils/Interface"
+import { FC } from "react";
+import { TextInput, View } from "react-native";
+import { IInputText } from "../../Utils/Interface";
+import { styles } from "./style";
 
-const InputText:FC<IInputText>=({onChangeText,value,placeholder})=>{
+const InputText: FC<IInputText> = ({ onChangeText, value, placeholder }) => {
+    return (
+        <View style={styles.rootcontainer}>
+            <TextInput
+                placeholder={placeholder}
+                onChangeText={onChangeText}
+                value={value}
+                placeholderTextColor="#faf9f9" 
+                
+             style={styles.textstyle}
+            />
+        </View>
+    );
+};
 
-     return (
-        <TextInput
-        placeholder={placeholder}
-        onChangeText={onChangeText}
-        value={value}
-        style={{padding: 10}}
-      />
-     )
-}
-export default InputText()
+export default InputText;
