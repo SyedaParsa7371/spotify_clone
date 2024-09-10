@@ -1,7 +1,9 @@
+import { FC } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-function Icons(){
+import { IIonicons } from "../Interface";
+const Icons:FC<IIonicons>=({name,color,size})=>{
     return (
-        <Ionicons/>
+        <Ionicons name={name} color={color} size={size}/>
     )
 }
  export default Icons

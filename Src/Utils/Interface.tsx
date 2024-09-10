@@ -1,14 +1,23 @@
 // Types of Interface
 
 import { Dispatch, ReactNode, SetStateAction } from "react"
+import { ColorValue, GestureResponderEvent, ImageSourcePropType } from "react-native"
 
 type TInputText={
     onChangeText?:Dispatch<SetStateAction<string>>
     value?:string
     placeholder?: string
 }
+type TIMage ={
+    image?: number
+    onPress?: ((event: GestureResponderEvent) => void)
+    source?:ImageSourcePropType
+}
 type TButton ={
-    children?:React.ReactNode
+    children?:ReactNode
+    icon?:React.ReactNode,
+    name?:any
+    size?:any
 }
 type TIcons ={
     icon?:React.ReactNode,
@@ -22,11 +31,25 @@ export interface IInputText{
     placeholder?:TInputText
 }
 export interface IButton{
-    children?:TButton
+    children?:string
+    image?: number
+    onPress?: ((event: GestureResponderEvent) => void)
+    source?:ImageSourcePropType
 }
 
 export interface IIcon {
     icon?:TIcons
-    name?TIcons: any
+    name?:TIcons
     size?:string
+}
+export interface IIMage {
+    image?: number
+    onPress?: ((event: GestureResponderEvent) => void)
+    source?:ImageSourcePropType
+}
+
+export interface IIonicons{
+    name:string,
+    size?:number,
+    color?:ColorValue
 }
