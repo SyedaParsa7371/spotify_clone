@@ -12,5 +12,9 @@ export const icons = {
     HomeIcon: require('../Images/homes_icon.png'),
     searchIcon: require('../Images/search_icon.png'),
     musicIcon: require('../Images/music_icon.png'),
+    backIcon: require('../Images/back_img_icon.png'),
+    playIcon: require('../Images/play_sound_Icons.png'),
+    dummyIcon:require('../Images/Ed_Sheeran.jpg')
+   
 
 }

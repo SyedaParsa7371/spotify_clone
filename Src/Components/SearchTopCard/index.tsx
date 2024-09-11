@@ -5,12 +5,7 @@ import styles from "./style";
 import CardTop from "../CardTop";
 
 const TopCard: FC = () => {
-  const navigation = useNavigation(); // Get the navigation object
-
-  function buttonhandler() {
-   
-    console.log("I am Pressed Play List");
-  }
+  
 
   return (
     <View style={styles.rootcontainer}>

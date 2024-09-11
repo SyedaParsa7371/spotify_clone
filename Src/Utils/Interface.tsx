@@ -25,16 +25,20 @@ type TButton = {
 };
 
 type TIcons = {
-  icon?: React.ReactNode;
-  name?: string;
-  size?: string;
+        name: string,
+        size?: number,
+        color?: ColorValue | number,
 };
 type IntialScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'IntialScreen'>;
 export type RootStackParamList = {
     IntialScreen: undefined;
     Signup: undefined;
+    PlayListScreen:undefined
+    
     
   };
+type PlayScreenNavigationProp=NativeStackNavigationProp<RootStackParamList,'PlayListScreen'>;
+
 export interface IInputText {
   onChangeText?: (text: string) => void;
   value?: string;
@@ -49,11 +53,10 @@ export interface IButton {
 }
 
 export interface IIcon {
-  icon?: TIcons;
-  name?: TIcons;
-  size?: string;
+        name: string,
+        size?: number,
+        color?: ColorValue | number,
 }
-
 export interface IImage {
   image?: number;
   onPress?: ((event: GestureResponderEvent) => void);
@@ -74,4 +77,8 @@ export interface IAuthNavigation {
 export interface ICardTop{
   children?:ReactNode,
   navigation?:any
+}
+export interface IPlayListNavigation {
+  navigation: PlayScreenNavigationProp;
+  children?:ReactNode,
 }

@@ -25,7 +25,7 @@ export const IconButtons: FC<IImage> = ({ image , onPress ,source }) => {
 
     return (
 
-        <TouchableOpacity  >
+        <TouchableOpacity onPress={onPress} >
             <View>
                 <Image source={image} style={styles.imageContainers} />
             </View>
@@ -39,7 +39,7 @@ export const HomeIcon: FC<IImage> = ({ image , onPress ,source }) => {
 
     return (
 
-        <TouchableOpacity  >
+        <TouchableOpacity onPress={onPress} >
             <View>
                 <Image source={image} style={styles.homeimagecontainer} />
             </View>
@@ -55,6 +55,45 @@ export const BellIcon: FC<IImage> = ({ image , onPress ,source }) => {
         <TouchableOpacity  >
             <View>
                 <Image source={image} style={styles.bellimagecontainer} />
+            </View>
+        </TouchableOpacity>
+
+    )
+}
+export const BackIcon: FC<IImage> = ({ image , onPress ,source }) => {
+   
+
+    return (
+
+        <TouchableOpacity  onPress={onPress}>
+            <View>
+                <Image source={image} style={styles.bellimagecontainer} />
+            </View>
+        </TouchableOpacity>
+
+    )
+}
+export const PlayIcon: FC<IImage> = ({ image , onPress ,source }) => {
+   
+
+    return (
+
+        <TouchableOpacity  onPress={onPress}>
+            <View>
+                <Image source={image} style={styles.playcontainer} />
+            </View>
+        </TouchableOpacity>
+
+    )
+}
+export const SpotifyIcon: FC<IImage> = ({ image , onPress ,source }) => {
+   
+
+    return (
+
+        <TouchableOpacity  onPress={onPress}>
+            <View>
+                <Image source={image} style={styles.spotifycontainer} />
             </View>
         </TouchableOpacity>
 

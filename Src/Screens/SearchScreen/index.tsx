@@ -17,7 +17,7 @@ const chunkyArray = (data, chunkSize) => {
 function SearchScreen() {
   const numColumns = 2; // Define the number of columns
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }:any) => (
     <View style={localStyles.itemContainer}>
       <CardTop>{item}</CardTop>
     </View>

@@ -25,7 +25,8 @@ return (
       <Stack.Screen name="Signup" component={SignUp} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={Login}  options={{ headerShown: false }}/>
       <Stack.Screen name="HomeScreen" component={BottomTabNavigation} options={{ headerShown: false }}  />
-    
+      <Stack.Screen name='PlayListScreen' component={PlayListScreen} options={{ headerShown: false }} 
+           />
 
       <Stack.Screen name="BottomNavigation" component={BottomTabNavigation}   />
 

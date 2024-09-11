@@ -1,24 +1,22 @@
-import { Text, TouchableOpacity, View } from "react-native"
-import styles from "./style"
-import { FC } from "react"
-import { ICardTop } from "../../Utils/Interface"
-import { useNavigation } from "@react-navigation/native"
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import styles from './style';
+import { ICardTop } from '../../Utils/Interface';
 
-const CardTop:FC<ICardTop>=({children})=> {
-const navigation = useNavigation()
+const CardTop: React.FC<ICardTop> = ({ children }) => {
 
-function navigationHandler(){
 
-}
-return (
 
+
+
+  return (
     <View style={styles.rootcontainer}>
       <TouchableOpacity style={styles.CardContainer} >
         <Text style={styles.CardText}>{children}</Text>
       </TouchableOpacity>
-     </View>
-     
-    )
-}
+    </View>
+  );
+};
 
-export default CardTop
+export default CardTop;
