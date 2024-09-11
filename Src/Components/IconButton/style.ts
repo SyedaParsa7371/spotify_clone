@@ -11,5 +11,15 @@ export const styles = StyleSheet.create({
         height: 180,
         width: 100,
         marginLeft:70
+    },
+    homeimagecontainer: {
+        height: 28,
+        width: 28,
+    
+    },
+    bellimagecontainer: {
+        height: 40,
+        width: 28,
+    
     }
 })

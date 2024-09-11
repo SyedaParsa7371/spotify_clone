@@ -8,6 +8,9 @@ import Login from './Src/Screens/Auth/Login';
 import IntialScreen from './Src/Screens/Auth/IntialScreen';
 import SignUp from './Src/Screens/Auth/SignUp';
 import HomeScreen from './Src/Screens/Home';
+import BottomTabNavigation from './Src/Navigation/BottomNavigation';
+import PlayListScreen from './Src/Screens/PlayList';
+import TopCard from './Src/Components/SearchTopCard';
 
 const Stack = createNativeStackNavigator()
 
@@ -21,7 +24,10 @@ return (
       <Stack.Screen name="IntialScreen" component={IntialScreen}  options={{ headerShown: false }} />
       <Stack.Screen name="Signup" component={SignUp} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={Login}  options={{ headerShown: false }}/>
-      <Stack.Screen name="HomeScreen" component={HomeScreen}  />
+      <Stack.Screen name="HomeScreen" component={BottomTabNavigation} options={{ headerShown: false }}  />
+    
+
+      <Stack.Screen name="BottomNavigation" component={BottomTabNavigation}   />
 
     </Stack.Navigator>
 

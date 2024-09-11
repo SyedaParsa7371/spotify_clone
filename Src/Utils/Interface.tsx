@@ -70,3 +70,8 @@ export interface IIonicons {
 export interface IAuthNavigation {
     navigation: IntialScreenNavigationProp;
   }
+
+export interface ICardTop{
+  children?:ReactNode,
+  navigation?:any
+}

@@ -34,3 +34,29 @@ export const IconButtons: FC<IImage> = ({ image , onPress ,source }) => {
     )
 }
 
+export const HomeIcon: FC<IImage> = ({ image , onPress ,source }) => {
+   
+
+    return (
+
+        <TouchableOpacity  >
+            <View>
+                <Image source={image} style={styles.homeimagecontainer} />
+            </View>
+        </TouchableOpacity>
+
+    )
+}
+export const BellIcon: FC<IImage> = ({ image , onPress ,source }) => {
+   
+
+    return (
+
+        <TouchableOpacity  >
+            <View>
+                <Image source={image} style={styles.bellimagecontainer} />
+            </View>
+        </TouchableOpacity>
+
+    )
+}

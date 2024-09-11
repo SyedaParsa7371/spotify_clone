@@ -10,9 +10,9 @@ import InputText from "../../../Components/TextInput";
 
 const Login: FC<IAuthNavigation> = ({ navigation }) => {
   
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+ 
+  const [email, setEmail] = useState<string>("parsa@gmail.com");
+  const [password, setPassword] = useState<string>("12345678");
   const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string }>({});
 
 
