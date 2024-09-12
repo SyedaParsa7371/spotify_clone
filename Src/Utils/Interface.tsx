@@ -76,7 +76,8 @@ export interface IAuthNavigation {
 
 export interface ICardTop{
   children?:ReactNode,
-  navigation?:any
+  navigation?:any,
+  onPress?:any
 }
 export interface IPlayListNavigation {
   navigation: PlayScreenNavigationProp;

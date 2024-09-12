@@ -19,7 +19,7 @@ function SearchScreen() {
 
   const renderItem = ({ item }:any) => (
     <View style={localStyles.itemContainer}>
-      <CardTop>{item}</CardTop>
+      <CardTop >{item}</CardTop>
     </View>
   );
 

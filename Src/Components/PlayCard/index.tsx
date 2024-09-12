@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { FlatList, Image, Pressable, Text, View } from 'react-native';
+import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import IoniconsIcon from '../IoniconButton';
 import { styles } from './style';
 import { DATA } from '../../Utils/Data';
@@ -8,13 +8,14 @@ import { DATA } from '../../Utils/Data';
 
 const PlayCard = ({ onPress }: any) => {
     return (
+      <View style={{flex:1}}>
       <FlatList
         data={DATA}
         renderItem={({ item }) => {
           return (
-            <Pressable
+            <TouchableOpacity
               onPress={onPress}
-              style={({ pressed }) => (pressed ? { opacity: 0.5 } : {})}
+             
             >
               <View style={styles.rootContainer}>
                 <View style={styles.imageTextContainer}>
@@ -29,14 +30,15 @@ const PlayCard = ({ onPress }: any) => {
                 </View>
                 <View style={styles.iconContainer}>
 
-                <IoniconsIcon name="ellipsis-vertical-outline" color="white" />
+                
                 </View>
               </View>
-            </Pressable>
+            </TouchableOpacity>
           );
         }}
         keyExtractor={item => item.id}
       />
+      </View>
     );
   };
   

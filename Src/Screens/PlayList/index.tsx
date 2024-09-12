@@ -49,7 +49,7 @@ function PlayListScreen() {
                 </View>
 
                 <View style={{marginTop:20}}>
-                <PlayCard/>
+                <PlayCard onPress={()=>navigation.navigate("Music Player Screen")} />
                 </View>
                 
 

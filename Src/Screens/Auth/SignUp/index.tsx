@@ -75,9 +75,13 @@ const SignUp: FC<IAuthNavigation> = ({ navigation }) => {
         <View style={{ marginTop: 30 }}>
           <ButtonsSignUps onPress={handleSignUp}>Sign Up</ButtonsSignUps>
         </View>
-        <View>
-          <ButtonsLoginss  onPress={() => navigation.navigate("Login")}>Already Have An Account? Log In</ButtonsLoginss>
+        <View style={{justifyContent:'center',alignItems:'center',marginTop:20}}>
+          <Text style={{color:'white',fontSize:20,}}>
+            Do You Have an account{' '}
+            <Text onPress={() => navigation.navigate('Login')} style={{color:'#348d37',textDecorationLine: 'underline'}}>Log In</Text>
+          </Text>
         </View>
+        
       </View>
     </View>
   );

@@ -4,7 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './style';
 import { ICardTop } from '../../Utils/Interface';
 
-const CardTop: React.FC<ICardTop> = ({ children }) => {
+const CardTop: React.FC<ICardTop> = ({ children,onPress }) => {
+  const navigation = useNavigation()
 
 
 
@@ -12,7 +13,7 @@ const CardTop: React.FC<ICardTop> = ({ children }) => {
 
   return (
     <View style={styles.rootcontainer}>
-      <TouchableOpacity style={styles.CardContainer} >
+      <TouchableOpacity style={styles.CardContainer} onPress={()=>navigation.navigate('Play List Screen')} >
         <Text style={styles.CardText}>{children}</Text>
       </TouchableOpacity>
     </View>
