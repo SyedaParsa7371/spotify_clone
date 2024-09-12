@@ -80,6 +80,7 @@ flexDirection: 'row'
   },
   lyricstext:{
     color:'white',fontWeight:"bold",fontSize:18,marginLeft:20,marginTop:20
-  }
+  },
+  
 });
 export default styles;

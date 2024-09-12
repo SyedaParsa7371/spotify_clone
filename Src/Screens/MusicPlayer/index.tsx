@@ -66,7 +66,10 @@ function MusicPlayerScreen() {
             The Kid LAROI, Justin Bieber
           </Text>
         </View>
+        <View style={styles.middleconticon}>
+
         <IoniconsIcon name="heart-outline" color="white" />
+        </View>
       </View>
 
       <View>
