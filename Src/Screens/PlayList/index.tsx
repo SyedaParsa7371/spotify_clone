@@ -9,8 +9,11 @@ import PlayCard from "../../Components/PlayCard";
 function PlayListScreen() {
     const navigation = useNavigation();
     return (
+        <ScrollView>
+
+       
         <LinearGradient colors={['#5e5e5e', '#181616', '#1a1919']} style={{ flex: 1 }}>
-            <ScrollView>
+          
                 <View style={{ flexDirection: 'row', marginTop: 20 ,marginLeft:9}}>
                     <View>
 
@@ -44,19 +47,14 @@ function PlayListScreen() {
                     <PlayIcon image={icons.playIcon}/>
                     </View>
                 </View>
-                <View style={{marginTop:20}}>
-                <PlayCard/>
-                </View>
-                <View style={{marginTop:20}}>
-                <PlayCard/>
-                </View>
-                <View style={{marginTop:20}}>
-                <PlayCard/>
-                </View>
 
-            </ScrollView>
+                <View style={{marginTop:20}}>
+                <PlayCard/>
+                </View>
+                
+
         </LinearGradient>
-
+ </ScrollView>
     )
 }
 export default PlayListScreen

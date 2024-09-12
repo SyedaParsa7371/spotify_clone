@@ -14,26 +14,25 @@ import TopCard from './Src/Components/SearchTopCard';
 
 const Stack = createNativeStackNavigator()
 
-function App(){
-useEffect(()=>{
-SplashScreen.hide()
-},[])
-return (
-  <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name="IntialScreen" component={IntialScreen}  options={{ headerShown: false }} />
-      <Stack.Screen name="Signup" component={SignUp} options={{ headerShown: false }} />
-      <Stack.Screen name="Login" component={Login}  options={{ headerShown: false }}/>
-      <Stack.Screen name="HomeScreen" component={BottomTabNavigation} options={{ headerShown: false }}  />
-      <Stack.Screen name='PlayListScreen' component={PlayListScreen} options={{ headerShown: false }} 
-           />
+function App() {
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="IntialScreen" component={IntialScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Signup" component={SignUp} options={{ headerShown: false }} />
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="HomeScreen" component={BottomTabNavigation} options={{ headerShown: false }} />
+        {/* <Stack.Screen name='PlayListScreen' component={PlayListScreen} options={{ headerShown: false }}/> */}
 
-      <Stack.Screen name="BottomNavigation" component={BottomTabNavigation}   />
+        <Stack.Screen name="BottomNavigation" component={BottomTabNavigation} />
 
-    </Stack.Navigator>
+      </Stack.Navigator>
 
-  </NavigationContainer>
-)
+    </NavigationContainer>
+  )
 }
 
 

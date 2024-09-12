@@ -1,53 +1,40 @@
-import { View, TouchableOpacity, Image, Text, ScrollView } from "react-native";
-import styles from "./style";
+import React from 'react';
+import { View, TouchableOpacity, Image, Text, FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import styles from './style';
+import { data } from '../../Utils/Data';
+
+
 
 function LatestSong() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+
+  const renderItem = ({ item }:any) => (
+    <View style={styles.trendingInnerContainer}>
+      <TouchableOpacity onPress={() => navigation.navigate("Play List Screen")}>
+        <Image
+          source={item.image}
+          style={{ width: 150, height: 175 }}
+        />
+      </TouchableOpacity>
+      <Text style={styles.trendingTitle}>{item.title}</Text>
+      <Text style={styles.trendingText}>{item.text}</Text>
+    </View>
+  );
+
   return (
     <View>
-      <TouchableOpacity >
-      
-      </TouchableOpacity>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={styles.trendingContainer}>
-
-          <View style={styles.trendingInnerContainer}>
-            <TouchableOpacity onPress={()=>navigation.navigate("PlayListScreen")}>
-            <Image
-              source={require('../../Utils/Images/Ed_Sheeran.jpg')}
-              style={{ width: 150, height: 175 }}
-            />
-            </TouchableOpacity>
-            <Text style={styles.trendingTitle}>Believers</Text>
-            <Text style={styles.trendingText}>Song. Imagine Dragons</Text>
-          </View>
-
-          <View style={styles.trendingInnerContainer}>
-            <TouchableOpacity onPress={()=>navigation.navigate("PlayListScreen")}>
-            <Image
-              source={require('../../Utils/Images/Ed_Sheeran.jpg')}
-              style={{ width: 150, height: 175 }}
-            />
-            </TouchableOpacity>
-            <Text style={styles.trendingTitle}>Believers</Text>
-            <Text style={styles.trendingText}>Song. Imagine Dragons</Text>
-          </View>
-          <View style={styles.trendingInnerContainer}>
-            <TouchableOpacity onPress={()=>navigation.navigate("PlayListScreen")}>
-            <Image
-              source={require('../../Utils/Images/Ed_Sheeran.jpg')}
-              style={{ width: 150, height: 175 }}
-            />
-            </TouchableOpacity>
-            <Text style={styles.trendingTitle}>Believers</Text>
-            <Text style={styles.trendingText}>Song. Imagine Dragons</Text>
-          </View>
-
-         </View>
-      </ScrollView>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.trendingContainer}
+      />
     </View>
   );
 }
+
 
 export default LatestSong;

@@ -1,29 +1,44 @@
-import { Text, View } from "react-native"
-import { PlayIcon } from "../IconButton"
-import { icons } from "../../Utils/Images"
-import IoniconsIcon from "../IoniconButton"
-import styles from "./style"
+import { FC } from 'react';
+import { FlatList, Image, Pressable, Text, View } from 'react-native';
+import IoniconsIcon from '../IoniconButton';
+import { styles } from './style';
+import { DATA } from '../../Utils/Data';
 
-function PlayCard() {
+
+
+const PlayCard = ({ onPress }: any) => {
     return (
-        <View>
-            <View style={styles.rootContainer}>
-                <View>
-                    <PlayIcon image={icons.dummyIcon} />
-                </View>
-                <View>
-                    <Text style={styles.titleStyle}>Alone</Text>
-                    <View style={styles.containerStyle}>
-                        <Text style={styles.textStyles}>Lyrics</Text>
-                        <Text style={{ color: 'white' }}>Alan Walker</Text>
+      <FlatList
+        data={DATA}
+        renderItem={({ item }) => {
+          return (
+            <Pressable
+              onPress={onPress}
+              style={({ pressed }) => (pressed ? { opacity: 0.5 } : {})}
+            >
+              <View style={styles.rootContainer}>
+                <View style={styles.imageTextContainer}>
+                  <Image source={item.image} style={styles.imageStyle} />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.titleTextStyle}>{item.title}</Text>
+                    <View style={styles.artistContainer}>
+                      <Text style={styles.lyricsText}>LYRICS</Text>
+                      <Text style={styles.textStyle}>{item.artist}</Text>
                     </View>
+                  </View>
                 </View>
-                <View style={styles.iconStyles}>
-                    <IoniconsIcon name="ellipsis-vertical-outline" color="white" />
-                </View>
-            </View>
+                <View style={styles.iconContainer}>
 
-        </View>
-    )
-}
-export default PlayCard
+                <IoniconsIcon name="ellipsis-vertical-outline" color="white" />
+                </View>
+              </View>
+            </Pressable>
+          );
+        }}
+        keyExtractor={item => item.id}
+      />
+    );
+  };
+  
+
+export default PlayCard;

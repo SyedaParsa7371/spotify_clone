@@ -1,10 +1,11 @@
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from '../Screens/Home';
 import SearchScren from '../Screens/SearchScreen';
 import LibraryScreen from '../Screens/Library';
 import PreniumScreen from '../Screens/Prenium';
+import HomePlaylistScreenStack from './HomePlaylistScreenStack';
 
 
 const Tab = createBottomTabNavigator();
@@ -16,7 +17,7 @@ function BottomTabNavigation() {
         tabBarActiveTintColor: '#ffffff',
         tabBarInactiveTintColor: '#6e6060',
         tabBarActiveBackgroundColor: '#2b232300',
-        tabBarLabelStyle: {fontSize: 14},
+        tabBarLabelStyle: { fontSize: 14 },
         tabBarStyle: {
           backgroundColor: '#00000000',
           position: 'absolute',
@@ -29,12 +30,13 @@ function BottomTabNavigation() {
         headerShown: false,
       }}>
       <Tab.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{headerShown: false,
-          tabBarIcon: ({color, size}) => {
-            return(
-              <Ionicons name='home' color={color} size={size}/>
+        name="Home Screen"
+        component={HomePlaylistScreenStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <Ionicons name='home' color={color} size={size} />
             )
           },
           tabBarLabel: 'Home',
@@ -43,39 +45,42 @@ function BottomTabNavigation() {
       <Tab.Screen
         name="SearchScreen"
         component={SearchScren}
-        options={{headerShown: false,
-          tabBarIcon: ({color, size}) => {
-            return(
-              <Ionicons name='search' color={color} size={size}/>
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <Ionicons name='search' color={color} size={size} />
             )
           },
           tabBarLabel: 'Search',
         }}
       />
-       <Tab.Screen
+      {/* <Tab.Screen
         name="LibraryScreen"
         component={LibraryScreen}
-        options={{headerShown: false,
-          tabBarIcon: ({color, size}) => {
-            return(
-              <Ionicons name="library-outline" color={color} size={size}/>
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <Ionicons name="library-outline" color={color} size={size} />
             )
           },
           tabBarLabel: 'Your Library',
         }}
-      /> 
-        <Tab.Screen
+      />
+      <Tab.Screen
         name="PreniumScreen"
         component={PreniumScreen}
-        options={{headerShown: false,
-          tabBarIcon: ({color, size}) => {
-            return(
-              <Ionicons name="radio-outline" color={color} size={size}/>
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <Ionicons name="radio-outline" color={color} size={size} />
             )
           },
           tabBarLabel: 'Prenium',
         }}
-      />  
+      /> */}
     </Tab.Navigator>
   );
 }

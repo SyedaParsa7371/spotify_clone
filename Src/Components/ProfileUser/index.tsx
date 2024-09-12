@@ -1,42 +1,34 @@
 import { FC } from "react"
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native"
+import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from "react-native"
 import styles from "./style"
-function UserList() {
+import { userData } from "../../Utils/Data";
+import { useNavigation } from "@react-navigation/native";
+const UserList: FC = () => {
+
+    const navigation = useNavigation();
+    const renderItem = ({ item }:any) => (
+      <View style={styles.userInnerContainer}>
+         <TouchableOpacity onPress={() => navigation.navigate("Play List Screen")}>
+        <Image
+          source={item.image}
+          style={{ width: 150, height: 175 }}
+        />
+        <Text style={styles.userText}>{item.description}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  
     return (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View>
-            <TouchableOpacity>
-
-            </TouchableOpacity>
-           
-
-            
-            <View>
-                <View style={styles.userContainer}>
-
-                    <View style={styles.userInnerContainer}>
-                        <Image
-                            source={require('../../Utils/Images/Ed_Sheeran.jpg')}
-                            style={{width: 150, height: 175 }}
-                        />
-                        <Text style={styles.userText}>Ed Sheeran,Katy Perry, Pitbull and more</Text>
-                    </View>
-
-
-                    <View style={styles.userInnerContainer}>
-                        <Image
-                            source={require('../../Utils/Images/Ed_Sheeran.jpg')}
-                            style={{width: 150, height: 175 }}
-                        />
-                        <Text style={styles.userText}>Ed Sheeran, Katy Perry, Pitbull and more</Text>
-                    </View>
-                </View>
-
-            </View>
-        </View>
-         </ScrollView>
-    )
-}
+      <FlatList
+        data={userData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.userContainer}
+      />
+    );
+  };
 
 
 
