@@ -1,9 +1,9 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../Screens/Home';
 import PlayListScreen from '../Screens/PlayList';
 import MusicPlayerScreen from '../Screens/MusicPlayer';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 function HomePlaylistScreenStack() {
   return (
@@ -24,7 +24,7 @@ function HomePlaylistScreenStack() {
         component={MusicPlayerScreen}
         options={{
           headerShown: true,
-          headerBackVisible: false, 
+          presentation:'modal',
           headerStyle: {
             backgroundColor: '#696060',
           },

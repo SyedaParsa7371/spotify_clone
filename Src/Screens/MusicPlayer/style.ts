@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
   },
   headingTitle:{
     color: 'white',
-     fontSize: 18
+     fontSize: 18,
+     
   },
   headingText:{
     color: 'white', 
@@ -38,11 +39,11 @@ const styles = StyleSheet.create({
   middlecontainHead:{
     color: '#cfcaca', 
     fontSize: 20,
-     marginLeft: 17
+     marginLeft: 30
   },
   middleconticon:{
     marginTop: 20, 
-    marginLeft: 70
+    marginLeft: 80
   },
   timeimg:{
     marginTop: 30, marginLeft: 30

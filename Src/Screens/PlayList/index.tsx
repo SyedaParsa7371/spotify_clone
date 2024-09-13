@@ -38,17 +38,22 @@ function PlayListScreen() {
                 </View>
 
                 <View style={{flexDirection:'row',marginTop:25}}>
-                    <View style={{flexDirection:'row',marginTop:10}}>
+                    <View style={{flexDirection:'row',marginTop:10,marginLeft:10}}>
+                    <View>
 
                     <IoniconsIcon name="heart-outline" color="white" />
+                    </View>
+                    <View style={{marginLeft:10}}>
+
                     <IoniconsIcon name="ellipsis-vertical-outline" color="white"/>
                     </View>
-                    <View style={{marginLeft:300}}>
+                    </View>
+                    <View style={{marginLeft:275}}>
                     <PlayIcon image={icons.playIcon}/>
                     </View>
                 </View>
 
-                <View style={{marginTop:20}}>
+                <View style={{marginTop:20,marginLeft:10}}>
                 <PlayCard onPress={()=>navigation.navigate("Music Player Screen")} />
                 </View>
                 

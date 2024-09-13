@@ -30,7 +30,7 @@ const PlayCard = ({ onPress }: any) => {
                 </View>
                 <View style={styles.iconContainer}>
 
-                
+                <IoniconsIcon name="ellipsis-vertical-outline" color="white"/>
                 </View>
               </View>
             </TouchableOpacity>
