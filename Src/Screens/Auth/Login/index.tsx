@@ -22,6 +22,8 @@ const Login: FC<IAuthNavigation> = ({navigation}) => {
     password?: string;
   }>({});
 
+ 
+
   const validateInputs = () => {
     const newErrors: {email?: string; password?: string} = {};
 

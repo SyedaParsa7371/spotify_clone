@@ -1,0 +1,167 @@
+// import React, { useState, useEffect } from 'react';
+// import { View, Text, Button, ActivityIndicator, StyleSheet } from 'react-native';
+// import { getSpotifyCategories } from '../../Utils/Http/Api';
+//  // Adjust the path as needed
+
+// const TokenCheckScreen = () => {
+//   const [categories, setCategories] = useState<any[]>([]);
+//   const [loading, setLoading] = useState<boolean>(false);
+//   const [error, setError] = useState<string | null>(null);
+
+//   const checkToken = async () => {
+//     setLoading(true);
+//     setError(null);
+
+//     try {
+//       const data = await getSpotifyCategories();
+//       setCategories(data.categories.items); // Adjust based on your actual response structure
+//     } catch (err) {
+//       setError('Failed to fetch categories. Check console for more details.');
+//       console.error(err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     checkToken();
+//   }, []);
+
+//   if (loading) {
+//     return <ActivityIndicator size="large" color="#0000ff" />;
+//   }
+
+//   return (
+//     <View style={styles.container}>
+//       {error && <Text style={styles.errorText}>{error}</Text>}
+//       <Text style={styles.header}>Spotify Categories:</Text>
+//       {categories.length > 0 ? (
+//         categories.map((category: any) => (
+//           <Text key={category.id} style={styles.categoryText}>
+//             {category.name}
+//           </Text>
+//         ))
+//       ) : (
+//         <Text>No categories found.</Text>
+//       )}
+//       <Button title="Refresh" onPress={checkToken} />
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 20,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   header: {
+//     fontSize: 18,
+//     fontWeight: 'bold',
+//     marginBottom: 10,
+//   },
+//   categoryText: {
+//     fontSize: 16,
+//     marginVertical: 5,
+//   },
+//   errorText: {
+//     color: 'red',
+//     marginBottom: 10,
+//   },
+// });
+
+// export default TokenCheckScreen;
+//console.log("data :", JSON.stringify(data,null,2) );
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import { View, Text, FlatList, Image, ActivityIndicator, StyleSheet } from 'react-native';
+// import axios from 'axios';
+// import { getPlaylistTracks } from '../../Utils/Http/Api';
+
+
+
+// const PlaylistDetailsScreen = ({ route }: any) => {
+//   const { playlistId } = route.params; // Access the playlistId from route params
+//   const [tracks, setTracks] = useState<any[]>([]);
+//   const [loading, setLoading] = useState<boolean>(true);
+//   const [error, setError] = useState<string | null>(null);
+
+//   useEffect(() => {
+//     const fetchTracks = async () => {
+//       setLoading(true);
+//       setError(null);
+
+//       try {
+//         const data = await getPlaylistTracks(playlistId);
+//         setTracks(data.items); // Assuming data.items contains the list of tracks
+//       } catch (err) {
+//         setError('Failed to fetch tracks. Check console for more details.');
+//         console.error(err);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchTracks();
+//   }, [playlistId]);
+
+//   const renderItem = ({ item }: any) => (
+//     <View style={styles.trackContainer}>
+//       <Image source={{ uri: item.track.album.images[0]?.url }} style={styles.trackImage} />
+//       <Text style={styles.trackName}>{item.track.name}</Text>
+//       <Text style={styles.trackArtist}>{item.track.artists.map((artist: any) => artist.name).join(', ')}</Text>
+//     </View>
+//   );
+
+//   if (loading) {
+//     return <ActivityIndicator size="large" color="#0000ff" />;
+//   }
+
+//   if (error) {
+//     return <Text style={styles.errorText}>{error}</Text>;
+//   }
+
+//   return (
+//     <View>
+//       <FlatList
+//         data={tracks}
+//         renderItem={renderItem}
+//         keyExtractor={(item) => item.track.id}
+//         contentContainerStyle={styles.listContainer}
+//       />
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   listContainer: {
+//     padding: 20,
+//   },
+//   trackContainer: {
+//     flexDirection: 'row',
+//     marginBottom: 20,
+//   },
+//   trackImage: {
+//     width: 50,
+//     height: 50,
+//     marginRight: 15,
+//   },
+//   trackName: {
+//     fontSize: 16,
+//     fontWeight: 'bold',
+//   },
+//   trackArtist: {
+//     fontSize: 14,
+//     color: '#888',
+//   },
+//   errorText: {
+//     textAlign: 'center',
+//     color: 'red',
+//     fontSize: 16,
+//   },
+// });
+
+// export default PlaylistDetailsScreen;

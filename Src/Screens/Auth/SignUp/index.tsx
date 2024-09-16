@@ -39,6 +39,12 @@ const SignUp: FC<IAuthNavigation> = ({ navigation }) => {
     return Object.keys(newErrors).length === 0; 
   };
 
+
+  function updateInputValueHandler(inputType:any,enteredValue:any) {
+    switch (inputType){
+
+    }
+  }
  
   const handleSignUp = () => {
     if (validateInputs()) {

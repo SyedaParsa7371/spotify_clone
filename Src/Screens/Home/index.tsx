@@ -6,6 +6,7 @@ import styles from "./style"
 import UserList from "../../Components/ProfileUser"
 import LatestSong from "../../Components/Trending"
 import RecentSong from "../../Components/Recent/index "
+import PlayListSong from "../../Components/Trending"
 function HomeScreen() {
     return (
         <ScrollView>
@@ -35,7 +36,7 @@ function HomeScreen() {
 
                 <View>
                     <Text style={styles.textStyles}>Trending now </Text>
-                    <LatestSong />
+                    < PlayListSong />
 
                 </View>
 

@@ -33,7 +33,7 @@ type IntialScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 
 export type RootStackParamList = {
     IntialScreen: undefined;
     Signup: undefined;
-    PlayListScreen:undefined
+    PlayListScreen: { playlistId: string };
     
     
   };
@@ -43,6 +43,7 @@ export interface IInputText {
   onChangeText?: (text: string) => void;
   value?: string;
   placeholder?: string;
+  secure?:boolean
 }
 
 export interface IButton {

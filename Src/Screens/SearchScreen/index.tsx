@@ -1,12 +1,11 @@
-import React from "react";
-import { ScrollView, SectionList, Text, View, FlatList, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { ScrollView, SectionList, Text, View, FlatList, StyleSheet, ActivityIndicator } from "react-native";
 import SearchBar from "../../Components/SearchBar";
 import CardTop from "../../Components/CardTop";
-import { DATAS } from "../../Utils/Data";
 import styles from "./style";
+import { getSpotifyCategories, getSpotifyGeneres } from "../../Utils/Http/Api";
 
-// Function to chunk data into rows with a specific number of columns
-const chunkyArray = (data, chunkSize) => {
+const chunkyArray = (data: any[], chunkSize: number) => {
   const chunks = [];
   for (let i = 0; i < data.length; i += chunkSize) {
     chunks.push(data.slice(i, i + chunkSize));
@@ -15,17 +14,74 @@ const chunkyArray = (data, chunkSize) => {
 };
 
 function SearchScreen() {
-  const numColumns = 2; // Define the number of columns
+  const [categories, setCategories] = useState<any[]>([]);
+  const [genere, setGenere] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const renderItem = ({ item }:any) => (
+  const numColumns = 2;
+
+  const updatedDatas = [
+    {
+      title: 'Top Genres',
+      data: chunkyArray(genere, numColumns),
+    },
+    {
+      title: 'Browse All',
+      data: chunkyArray(categories, numColumns),
+    },
+  ];
+
+  const renderItem = ({ item }: any) => (
     <View style={localStyles.itemContainer}>
-      <CardTop >{item}</CardTop>
+      <CardTop>{item}</CardTop>
     </View>
   );
 
-  const renderSectionHeader = ({ section: { title } }) => (
+  const renderSectionHeader = ({ section: { title } }: { section: { title: string } }) => (
     <Text style={styles.searchTexts}>{title}</Text>
   );
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const data = await getSpotifyCategories();
+        const fetchedCategories = data.categories.items.map((category: any) => category.name);
+        setCategories(fetchedCategories);
+      } catch (err) {
+        setError('Failed to fetch categories. Check console for more details.');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchGeneres = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const data = await getSpotifyGeneres();
+        const fetchedGeneres = data.genres.map((genere: any) => genere); // Adjust based on actual response structure
+        setGenere(fetchedGeneres);
+      } catch (err) {
+        setError('Failed to fetch genres. Check console');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+    fetchGeneres();
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
 
   return (
     <ScrollView style={styles.scrollStyle}>
@@ -34,22 +90,8 @@ function SearchScreen() {
         <SearchBar />
       </View>
 
-      {/* Uncomment if needed */}
-      {/* <View style={styles.topContainer}>
-        <Text style={styles.topText}>Your top genres</Text>
-        <TopCard />
-      </View>
-
-      <View style={styles.topContainer}>
-        <Text style={styles.topText}>Browse all</Text>
-        <Browse />
-      </View> */}
-
       <SectionList
-        sections={DATAS.map((section) => ({
-          title: section.title,
-          data: chunkyArray(section.data, numColumns), 
-        }))}
+        sections={updatedDatas}
         keyExtractor={(item, index) => item + index}
         renderSectionHeader={renderSectionHeader}
         renderItem={({ item }) => (
@@ -57,8 +99,8 @@ function SearchScreen() {
             data={item}
             renderItem={renderItem}
             keyExtractor={(item, index) => item + index}
-            numColumns={numColumns} 
-            scrollEnabled={false} 
+            numColumns={numColumns}
+            scrollEnabled={false}
           />
         )}
       />

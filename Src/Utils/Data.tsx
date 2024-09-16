@@ -1,14 +1,26 @@
-export const DATAS = [
-    {
-      title: 'Your top geners',
-      data: ['Prop','Bollywood'],
-    },
-    {
-      title: 'Browse All',
-      data: ['Podcasts','New Releases','Charts','Concerts','Made for You','At Home','At School']
-    },
-   
-  ];
+
+export const artistData = [
+  {
+    id: '1',
+    image: require('../Utils/Images/Ed_Sheeran.jpg'),
+    title: 'Believers',
+    text: 'Song. Imagine Dragons'
+  },
+  {
+    id: '2',
+    image: require('../Utils/Images/Ed_Sheeran.jpg'),
+    title: 'Believers',
+    text: 'Song. Imagine Dragons'
+  },
+  {
+    id: '3',
+    image: require('../Utils/Images/Ed_Sheeran.jpg'),
+    title: 'Believers',
+    text: 'Song. Imagine Dragons'
+  },
+
+];
+
 
   //Data for trending & Recent component
   export const data = [
