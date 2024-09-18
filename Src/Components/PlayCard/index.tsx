@@ -1,46 +1,44 @@
 import { FC } from 'react';
-import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import IoniconsIcon from '../IoniconButton';
 import { styles } from './style';
-import { DATA } from '../../Utils/Data';
 
-
-
-const PlayCard = ({ onPress }: any) => {
-    return (
-      <View style={{flex:1}}>
+const PlayCard = ({ songs, onPress }: { songs: any[]; onPress: (songId: string) => void }) => {
+  return (
+    <View style={{ flex: 1 }}>
       <FlatList
-        data={DATA}
+        data={songs}
         renderItem={({ item }) => {
+          const imageUrl = item.images?.[0]?.url || 'No image available';
+
           return (
-            <TouchableOpacity
-              onPress={onPress}
-             
-            >
+            <TouchableOpacity onPress={() => onPress(item.id)}>
               <View style={styles.rootContainer}>
                 <View style={styles.imageTextContainer}>
-                  <Image source={item.image} style={styles.imageStyle} />
+                  <Image
+                    source={imageUrl ? { uri: imageUrl } : require('../../Utils/Images/Ed_Sheeran.jpg')}
+                    style={styles.imageStyle}
+                  />
                   <View style={styles.textContainer}>
-                    <Text style={styles.titleTextStyle}>{item.title}</Text>
+                    <Text style={styles.titleTextStyle}>{item.name}</Text>
                     <View style={styles.artistContainer}>
-                      <Text style={styles.lyricsText}>LYRICS</Text>
-                      <Text style={styles.textStyle}>{item.artist}</Text>
+                      <Text style={styles.textStyle}>
+                        {item.artists.map((artist: any) => artist.name).join(', ')}
+                      </Text>
                     </View>
                   </View>
                 </View>
                 <View style={styles.iconContainer}>
-
-                <IoniconsIcon name="ellipsis-vertical-outline" color="white"/>
+                  <IoniconsIcon name="ellipsis-vertical-outline" color="white" />
                 </View>
               </View>
             </TouchableOpacity>
           );
         }}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
       />
-      </View>
-    );
-  };
-  
+    </View>
+  );
+};
 
 export default PlayCard;

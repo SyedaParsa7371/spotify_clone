@@ -31,10 +31,10 @@ const PlayListSong = () => {
 
   const renderItem = ({ item }: any) => (
     <View style={styles.trendingInnerContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('')}>
         <Image
           source={{ uri: item.album.images[0]?.url }} // Use album image URL
-          style={{ width: 150, height: 175 }}
+          style={{ width: 100, height: 120 }}
           onError={(error) => console.log('Error loading image:', error.nativeEvent.error)} // Log image load errors
         />
       </TouchableOpacity>
@@ -44,7 +44,7 @@ const PlayListSong = () => {
   );
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return <ActivityIndicator size="large" color="#fafafa" />;
   }
 
   if (error) {

@@ -35,7 +35,7 @@ const fetchSpotifyAccessToken = async () => {
     await AsyncStorage.setItem(TOKEN_KEY, access_token);
     await AsyncStorage.setItem('expiryDate', expiryDate.toString());
     return access_token;
-  } catch (error) {
+  } catch ({error}:any) {
     console.error('Error fetching access token:', error.response?.data || error.message);
     throw error;
   }
@@ -138,13 +138,24 @@ export const getSpotifyGeneres = async () => {
 //const artistUrl = `artists?ids=${artistIds.join(',')}`;
 // Function to fetch details for multiple artists
 export const getAlbum = async () => {
-  const getAlbum = `albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc`;
+  const getAlbum = `browse/new-releases`;
 
   try {
     const response = await axiosInstance.get(getAlbum);
     return response.data.albums;
   } catch (error) {
     console.error('Error fetching multiple artists from Spotify', error);
+    throw error;
+  }
+};
+
+export const getAlbumSongs = async (albumId: string) => {
+  const endpoint = `albums/${albumId}/tracks`; // Spotify endpoint for album's tracks
+  try {
+    const response = await axiosInstance.get(endpoint);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching album songs from Spotify', error);
     throw error;
   }
 };
@@ -174,16 +185,49 @@ export const getRecommendations = async ()=>{
   }
 }
 
-export const getPlaylistTracks = async (playlistId: string) => {
-  const tracksUrl = `playlists/${playlistId}/tracks`; // Corrected URL
+export const getTrack = async (songId: string) => {
+  const getTrackUrl = `tracks/${songId}`; 
+
   try {
-    const response = await axiosInstance.get(tracksUrl);
-    return response.data; // Make sure the response structure is correct
+    const response = await axiosInstance.get(getTrackUrl);
+    return response.data; 
   } catch (error) {
-    console.error('Error fetching tracks from Spotify', error);
-    throw error;
+    console.error('Error fetching track:', error);
+    throw error; 
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const getPlaylistTracks = async (playlistId: string) => {
+//   const tracksUrl = `playlists/${playlistId}/tracks`; // Corrected URL
+//   try {
+//     const response = await axiosInstance.get(tracksUrl);
+//     return response.data; // Make sure the response structure is correct
+//   } catch (error) {
+//     console.error('Error fetching tracks from Spotify', error);
+//     throw error;
+//   }
+// };
+
+
 
 // https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl
 

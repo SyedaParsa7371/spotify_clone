@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
   },
   headingStyle:{
     alignItems: 'center',
-    marginLeft:60
+    
+   
   },
   headingTitle:{
     color: 'white',

@@ -11,12 +11,12 @@ const styles = StyleSheet.create({
         color: "white",
          fontSize: 27, 
          fontWeight: 'bold' ,
-         paddingLeft:7,
+         paddingLeft:17,
          paddingTop:10,
         
     },
     bellStyle:{
-        marginLeft:97,
+        marginLeft:90,
         marginTop:15},
     historyStyle:{
         paddingLeft:20,

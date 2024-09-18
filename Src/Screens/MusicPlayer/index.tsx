@@ -1,24 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {BackIcon} from '../../Components/IconButton';
-import {icons} from '../../Utils/Images';
+import { BackIcon } from '../../Components/IconButton';
+import { icons } from '../../Utils/Images';
 import IoniconsIcon from '../../Components/IoniconButton';
 import styles from './style';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Slider from '@react-native-community/slider';
+import { getTrack } from '../../Utils/Http/Api';
 
 function MusicPlayerScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { songId } = route.params; 
   const [pause, setPause] = useState(false);
+  const [trackData, setTrackData] = useState(null); // State for track data
 
   function Ontoggle() {
     setPause(!pause);
   }
 
   useEffect(() => {
-    // Set header options using useEffect
     navigation.setOptions({
       headerRight: () => (
         <Ionicons
@@ -31,7 +34,7 @@ function MusicPlayerScreen() {
         />
       ),
       headerLeft: () => (
-        <View style={{marginLeft: 10}}>
+        <View style={{ marginLeft: 10 }}>
           <BackIcon
             image={icons.downIcon}
             onPress={() => navigation.goBack()}
@@ -40,17 +43,31 @@ function MusicPlayerScreen() {
       ),
       headerTitle: () => (
         <View style={styles.headingStyle}>
-          <Text style={styles.headingTitle}>PLAYING FROM SEARCH</Text>
-          <Text style={styles.headingText}>"stay" in Songs</Text>
+          <Text style={styles.headingTitle}>{trackData ? trackData.name : 'Loading...'}</Text>
+          <Text style={styles.headingText}>{trackData ? trackData.artists.map(artist => artist.name).join(', ') : ''}</Text>
         </View>
       ),
     });
-  }, [navigation]);
+  }, [navigation, trackData]); 
 
   useEffect(() => {
-    // Hide the bottom tab bar when this screen is focused
+    console.log('Song ID:', songId);
+    const fetchTrack = async () => {
+      try {
+        const data = await getTrack(songId); 
+        console.log('Track Data:', data);
+        setTrackData(data); 
+      } catch (error) {
+        console.error('Error fetching track data:', error);
+      }
+    };
+
+    fetchTrack();
+  }, [songId]);
+
+  useEffect(() => {
     navigation.getParent()?.setOptions({
-      tabBarStyle: {display: 'none'},
+      tabBarStyle: { display: 'none' },
     });
     return () => {
       navigation.getParent()?.setOptions({
@@ -66,6 +83,7 @@ function MusicPlayerScreen() {
       });
     };
   }, [navigation]);
+
   return (
     <ScrollView>
       <LinearGradient
@@ -81,10 +99,10 @@ function MusicPlayerScreen() {
         <View style={styles.middlecontainer}>
           <View>
             <Text style={styles.middlecontainHead}>
-              STAY (with Justin Bieber)
+              {trackData ? trackData.name : 'Loading...'}
             </Text>
             <Text style={styles.middlecontainHead}>
-              The Kid LAROI, Justin Bieber
+              {trackData ? trackData.artists.map(artist => artist.name).join(', ') : ''}
             </Text>
           </View>
           <View style={styles.middleconticon}>
@@ -94,7 +112,7 @@ function MusicPlayerScreen() {
 
         <View>
           <Slider
-            style={{width: 350, height: 40, marginLeft: 30}}
+            style={{ width: 350, height: 40, marginLeft: 30 }}
             minimumValue={0}
             maximumValue={1}
             minimumTrackTintColor="#FFFFFF"
@@ -128,10 +146,6 @@ function MusicPlayerScreen() {
               }
             />
           </TouchableOpacity>
-          {/* <Image
-          source={require('../../Utils/Images/stop_icon.png')}
-          style={styles.pauseimg}
-        /> */}
           <TouchableOpacity>
             <Image
               source={require('../../Utils/Images/next_icon.png')}
@@ -147,21 +161,19 @@ function MusicPlayerScreen() {
         </View>
 
         {/* Additional Controls */}
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity>
-
-          <Image
-            source={require('../../Utils/Images/cast_icon.png')}
-            style={styles.castimg}
-          />
+            <Image
+              source={require('../../Utils/Images/cast_icon.png')}
+              style={styles.castimg}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity>
-
-          <Image
-            source={require('../../Utils/Images/share_icon.png')}
-            style={styles.shareimg}
-          />
+            <Image
+              source={require('../../Utils/Images/share_icon.png')}
+              style={styles.shareimg}
+            />
           </TouchableOpacity>
         </View>
 

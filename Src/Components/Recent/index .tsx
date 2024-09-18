@@ -38,9 +38,9 @@ const RecentSong = () => {
     <View style={styles.recentInnerContainer}>
       <TouchableOpacity>
         <Image
-          source={{ uri: item.album.images[0]?.url }} // Use album image URL
-          style={{ width: 150, height: 175 }}
-          onError={(error) => console.log('Error loading image:', error.nativeEvent.error)} // Log image load errors
+          source={{ uri: item.album.images[0]?.url }} 
+          style={{ width: 100, height: 100 }}
+          onError={(error) => console.log('Error loading image:', error.nativeEvent.error)} 
         />
       </TouchableOpacity>
       <Text style={styles.recentTitle}>{item.name}</Text>
@@ -49,7 +49,7 @@ const RecentSong = () => {
   );
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return <ActivityIndicator size="large" color="#ffffff" />;
   }
 
   if (error) {
