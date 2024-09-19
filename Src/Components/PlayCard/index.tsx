@@ -16,10 +16,10 @@ const PlayCard = ({ songs, onPress }: { songs: any[]; onPress: (songId: string) 
               <View style={styles.rootContainer}>
                 <View style={styles.imageTextContainer}>
                   <Image
-                    source={imageUrl ? { uri: imageUrl } : require('../../Utils/Images/Ed_Sheeran.jpg')}
+                    source={ require('../../Utils/Images/Ed_Sheeran.jpg')}
                     style={styles.imageStyle}
                   />
-                  <View style={styles.textContainer}>
+                  <View style={[styles.textContainer, { flex: 0.9 }]}>
                     <Text style={styles.titleTextStyle}>{item.name}</Text>
                     <View style={styles.artistContainer}>
                       <Text style={styles.textStyle}>

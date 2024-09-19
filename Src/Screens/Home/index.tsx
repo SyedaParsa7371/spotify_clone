@@ -9,6 +9,9 @@ import RecentSong from '../../Components/Recent/index ';
 import PlayListSong from '../../Components/Trending';
 function HomeScreen() {
   return (
+    <ScrollView>
+
+  
     <LinearGradient
       colors={['#646666', '#252424', '#222222', '#181616', '#1a1919']}
       style={{height: '100%'}}>
@@ -42,6 +45,7 @@ function HomeScreen() {
         </View>
       </View>
     </LinearGradient>
+    </ScrollView>
   );
 }
 export default HomeScreen;

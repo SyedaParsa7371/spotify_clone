@@ -1,0 +1,244 @@
+// import React, {useEffect, useState} from 'react';
+// import {
+//   Image,
+//   ScrollView,
+//   Text,
+//   TouchableOpacity,
+//   View,
+//   StyleSheet,
+// } from 'react-native';
+// import LinearGradient from 'react-native-linear-gradient';
+// import {useNavigation, useRoute} from '@react-navigation/native';
+// import Sound from 'react-native-sound';
+// import Slider from '@react-native-community/slider';
+// import {getTrack} from '../../Utils/Http/Api';
+// import {BackIcon} from '../../Components/IconButton';
+// import {icons} from '../../Utils/Images';
+// import Ionicons from '../../Utils/Ionicons';
+// import styles from './style';
+// import IoniconsIcon from '../../Components/IoniconButton';
+
+// const MusicPlayerScreen = () => {
+//   const navigation = useNavigation();
+//   const route = useRoute();
+//   const {songId} = route.params;
+//   const [trackData, setTrackData] = useState(null);
+//   const [duration, setDuration] = useState(0);
+//   const [position, setPosition] = useState(0);
+//   const [sound, setSound] = useState(null);
+//   const [isPlaying, setIsPlaying] = useState(false);
+
+//   const fetchTrack = async () => {
+//     try {
+//       const data = await getTrack(songId);
+//       setTrackData(data);
+
+    
+//       const newSound = new Sound(data.preview_url, null, error => {
+//         if (error) {
+//           console.error('Error loading track:', error);
+//           return;
+//         }
+//         setDuration(newSound.getDuration());
+//         setSound(newSound);
+//       });
+//     } catch (error) {
+//       console.error('Error fetching track:', error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchTrack();
+
+//     return () => {
+//       if (sound) {
+//         sound.release();
+//       }
+//     };
+//   }, [songId]);
+
+//   const togglePlayback = () => {
+//     if (sound) {
+//       if (isPlaying) {
+//         sound.pause();
+//       } else {
+//         sound.play(() => setIsPlaying(false)); // Play track and update isPlaying state
+//       }
+//       setIsPlaying(!isPlaying);
+//     }
+//   };
+
+//   const handleSeek =( value:any) => {
+//     if (sound) {
+//       sound.setCurrentTime(value); // Seek to the position
+//       setPosition(value);
+//     }
+//   };
+
+//   useEffect(() => {
+//     const updatePosition = () => {
+//       if (sound) {
+//         sound.getCurrentTime(seconds => {
+//           setPosition(seconds);
+//         });
+//       }
+//     };
+
+//     const intervalId = setInterval(updatePosition, 1000); 
+//     return () => clearInterval(intervalId);
+//   }, [sound]);
+
+//   useEffect(() => {
+//     navigation.setOptions({
+//       headerRight: () => (
+//         <Ionicons
+//           name="ellipsis-vertical-outline"
+//           size={24}
+//           color="white"
+//           onPress={() => {
+         
+//           }}
+//         />
+//       ),
+//       headerLeft: () => (
+//         <View style={{marginLeft: 10}}>
+//           <BackIcon
+//             image={icons.downIcon}
+//             onPress={() => navigation.goBack()}
+//           />
+//         </View>
+//       ),
+//       headerTitle: () => (
+//         <View style={styles.headingStyle}>
+//           <Text style={styles.headingTitle}>
+//             {trackData ? `"${trackData.name}"` : 'Loading...'}
+//           </Text>
+//         </View>
+//       ),
+//     });
+//   }, [navigation, trackData]);
+//   useEffect(() => {
+//     // Hide the bottom tab bar when this screen is focused
+//     navigation.getParent()?.setOptions({
+//       tabBarStyle: {display: 'none'},
+//     });
+//     return () => {
+//       navigation.getParent()?.setOptions({
+//         tabBarStyle: {
+//           backgroundColor: 'transparent',
+//           position: 'absolute',
+//           borderTopWidth: 0,
+//           left: 0,
+//           right: 0,
+//           bottom: 0,
+//           elevation: 0,
+//         },
+//       });
+//     };
+//   }, [navigation]);
+//   return (
+  
+  
+//     <ScrollView style={{flex:1}}>
+//       <LinearGradient
+//         colors={['#696060', '#535151', '#161515']}
+//         style={styles.linearStyle}>
+//         <View>
+//           <Image
+//             source={require('../../Utils/Images/Ed_Sheeran.jpg')}
+//             style={styles.mainImgStyle}
+//           />
+//         </View>
+//         <View style={styles.middlecontainHead}>
+//           <View
+//             style={{flexDirection: 'row', alignItems: 'center', width: '95%'}}>
+//             <View style={{flex: 1}}>
+//               <Text style={styles.middlecontainHead}>
+//                 {trackData
+//                   ? `${trackData.name} (with ${trackData.artists[0]?.name})`
+//                   : 'Loading...'}
+//               </Text>
+//               <Text style={styles.middlecontainHead}>
+//                 {trackData
+//                   ? trackData.artists.map(artist => artist.name).join(', ')
+//                   : ''}
+//               </Text>
+//             </View>
+//             <View style={styles.middleconticon}>
+//               <IoniconsIcon name="heart-outline" color="white" />
+//             </View>
+//           </View>
+//         </View>
+//         <Slider
+//           style={{width: 350, height: 40, marginLeft: 30}}
+//           minimumValue={0}
+//           maximumValue={duration}
+//           minimumTrackTintColor="#FFFFFF"
+//           maximumTrackTintColor="#000000"
+//           thumbTintColor="#FFFFFF"
+//           value={position}
+//           onValueChange={handleSeek}
+//         />
+//         <View style={styles.imgcontain}>
+//           <TouchableOpacity>
+//             <Image
+//               source={require('../../Utils/Images/shufle_icon.png')}
+//               style={styles.shuffleimg}
+//             />
+//           </TouchableOpacity>
+//           <TouchableOpacity>
+//             <Image
+//               source={require('../../Utils/Images/previous_icon.png')}
+//               style={styles.arrowrightimg}
+//             />
+//           </TouchableOpacity>
+//           <TouchableOpacity onPress={togglePlayback}>
+//             <Image
+//               style={styles.pauseimg}
+//               source={
+//                 isPlaying
+//                   ? require('../../Utils/Images/pause_icon.png')
+//                   : require('../../Utils/Images/stop_icon.png')
+//               }
+//             />
+//           </TouchableOpacity>
+//           <TouchableOpacity>
+//             <Image
+//               source={require('../../Utils/Images/next_icon.png')}
+//               style={styles.arrowlefyimg}
+//             />
+//           </TouchableOpacity>
+//           <TouchableOpacity>
+//             <Image
+//               source={require('../../Utils/Images/loop_icon.png')}
+//               style={styles.loopImg}
+//             />
+//           </TouchableOpacity>
+//         </View>
+
+//         <View style={{flexDirection: 'row', marginTop:20}}>
+//           <TouchableOpacity>
+//             <Image
+//               source={require('../../Utils/Images/cast_icon.png')}
+//               style={styles.castimg}
+//             />
+//           </TouchableOpacity>
+//           <TouchableOpacity>
+//             <Image
+//               source={require('../../Utils/Images/share_icon.png')}
+//               style={styles.shareimg}
+//             />
+//           </TouchableOpacity>
+//         </View>
+//         {/* <View style={styles.lyricscontainer}>
+//           <Text style={styles.lyricstext}>Lyrics</Text>
+//         </View> */}
+//       </LinearGradient>
+//     </ScrollView>
+        
+    
+//   );
+// };
+
+
+// export default MusicPlayerScreen;

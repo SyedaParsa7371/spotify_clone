@@ -1,28 +1,31 @@
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
-    trendingContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    trendingInnerContainer: {
-      alignItems: 'center',
-      paddingTop: 10
-    },
-    trendingTitle: {
-      width: 175,
-      paddingLeft: 15,
-      textAlign: 'left',
-      color: 'white',
-      fontWeight: 'bold'
-    },
-    trendingText: {
-      width: 175,
-      paddingLeft: 13,
-      textAlign: 'left',
-      color: 'white',
-      paddingBottom: 20,
-    }
-  });
+  trendingContainer: {
+    padding: 20,
+  },
+  trendingInnerContainer: {
+    marginRight: 20,
+    alignItems: 'center',
+  },
+  trendingTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 10,
+    color: 'white',
+  },
+  trendingText: {
+    fontSize: 16,
+    color: '#fdfbfb',
+    textAlign: 'center',
+    marginTop: 5,
+  },
+  errorText: {
+    textAlign: 'center',
+    color: 'red',
+    fontSize: 16,
+  },
+});
+
   
 export default styles

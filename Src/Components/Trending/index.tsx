@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getSeveralTracks } from '../../Utils/Http/Api'; // Adjust import path as necessary
+import styles from './style';
 
 const PlayListSong = () => {
   const navigation = useNavigation();
@@ -31,18 +32,17 @@ const PlayListSong = () => {
 
   const renderItem = ({ item }: any) => (
     <View style={styles.trendingInnerContainer}>
-      <TouchableOpacity onPress={()=>navigation.navigate('')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Music Player Screen', { songId: item.id, })}>
         <Image
-          source={{ uri: item.album.images[0]?.url }} // Use album image URL
-          style={{ width: 100, height: 120 }}
+          source={require('../../Utils/Images/Ed_Sheeran.jpg')} // Use album image URL
+          style={{ width: 150, height: 150 }}
           onError={(error) => console.log('Error loading image:', error.nativeEvent.error)} // Log image load errors
         />
       </TouchableOpacity>
       <Text style={styles.trendingTitle}>{item.name}</Text>
-      <Text style={styles.trendingText}>{item.artists.map((artist: any) => artist.name).join(', ')}</Text>
+      <Text style={styles.trendingText}>Artist: {item.artists.map((artist: any) => artist.name).join(', ')}</Text>
     </View>
   );
-
   if (loading) {
     return <ActivityIndicator size="large" color="#fafafa" />;
   }
@@ -65,31 +65,5 @@ const PlayListSong = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  trendingContainer: {
-    padding: 20,
-  },
-  trendingInnerContainer: {
-    marginRight: 20,
-    alignItems: 'center',
-  },
-  trendingTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 10,
-    color: 'white',
-  },
-  trendingText: {
-    fontSize: 14,
-    color: '#fdfbfb',
-    textAlign: 'center',
-    marginTop: 5,
-  },
-  errorText: {
-    textAlign: 'center',
-    color: 'red',
-    fontSize: 16,
-  },
-});
 
 export default PlayListSong;

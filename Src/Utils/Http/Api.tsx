@@ -150,10 +150,12 @@ export const getAlbum = async () => {
 };
 
 export const getAlbumSongs = async (albumId: string) => {
-  const endpoint = `albums/${albumId}/tracks`; // Spotify endpoint for album's tracks
+  const endpoint = `albums/${albumId}/tracks`; 
   try {
     const response = await axiosInstance.get(endpoint);
-    return response.data;
+ 
+    const Preview = response.data.items.filter((track: any) => track.preview_url);
+    return { ...response.data, items: Preview }; 
   } catch (error) {
     console.error('Error fetching album songs from Spotify', error);
     throw error;
@@ -179,6 +181,7 @@ export const getRecommendations = async ()=>{
 
   try {
     const response = await axiosInstance.get(getRecommendUrl)
+    
     return response.data.tracks; 
   }catch(error){
     console.error('Error fetching recommendations',error)

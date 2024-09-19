@@ -57,6 +57,7 @@ export interface IIcon {
         name: string,
         size?: number,
         color?: ColorValue | number,
+        style?:any
 }
 export interface IImage {
   image?: number;
@@ -69,6 +70,7 @@ export interface IIonicons {
   name: string;
   size?: number;
   color?: ColorValue;
+  onPress?:()=>void
 }
 
 export interface IAuthNavigation {

@@ -51,30 +51,32 @@ const AlbumList = () => {
   
     const imageUri = item.images[0]?.url || '';
   
+    // Define a character limit for the first line
+    const charLimit = 20;
+    const albumName = item.name || 'Unknown';
+    const firstPart = albumName.slice(0, charLimit);
+    const secondPart = albumName.slice(charLimit);
+  
     return (
       <View style={styles.itemContainer}>
         <TouchableOpacity
-        // onPress={() => navigation.navigate('Play List Screen', { albumId: item.id })} // Pass albumId here
-
-          onPress={() => navigation.navigate('Play List Screen', { albumId: item.id })} // Pass albumId here
+          onPress={() => navigation.navigate('Play List Screen', { albumId: item.id })}
         >
           {imageUri ? (
-            <Image source={{ uri: imageUri }} style={styles.image} />
+            <Image source={require('../../Utils/Images/Ed_Sheeran.jpg')} style={styles.image} />
           ) : (
             <Text style={styles.errorText}>No image available</Text>
           )}
-          <Text style={styles.name}>{item.name || 'Unknown'}</Text>
+          <Text style={styles.name}>{firstPart}</Text>
+          {secondPart.length > 0 && <Text style={styles.name}>{secondPart}</Text>}
           <Text style={styles.artists}>
-            Artists:{' '}
-            {item.artists.map((artist: any) => artist.name).join(' , ') || 'Unknown'}
-          </Text>
-          <Text style={styles.releaseDate}>
-            Release Date: {item.release_date || 'Unknown'}
+            Artists: {item.artists.map((artist: any) => artist.name).join(', ') || 'Unknown'}
           </Text>
         </TouchableOpacity>
       </View>
     );
   };
+  
   
   if (loading) {
     return <ActivityIndicator size="large" color="#ffffff" />;
@@ -101,13 +103,13 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   itemContainer: {
-    marginBottom: 20,
+    marginBottom: 10,
     marginHorizontal: 18,
     alignItems: 'center',
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
   },
   name: {
     fontSize: 18,

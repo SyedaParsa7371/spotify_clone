@@ -5,7 +5,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 5,
+    marginVertical: 5
+    , width: '95%'
   },
   imageTextContainer: {
     flexDirection: 'row',

@@ -34,19 +34,28 @@ const RecentSong = () => {
     fetchRecommendations();
   }, []);
 
-  const renderItem = ({ item }: { item: any }) => (
-    <View style={styles.recentInnerContainer}>
-      <TouchableOpacity>
-        <Image
-          source={{ uri: item.album.images[0]?.url }} 
-          style={{ width: 100, height: 100 }}
-          onError={(error) => console.log('Error loading image:', error.nativeEvent.error)} 
-        />
-      </TouchableOpacity>
-      <Text style={styles.recentTitle}>{item.name}</Text>
-      <Text style={styles.recentText}>{item.artists.map((artist: any) => artist.name).join(', ')}</Text>
-    </View>
-  );
+  const renderItem = ({ item }: { item: any }) => {
+    const previewUrl = item.preview_url; // Check for preview URL
+
+    // Only render the item if the preview URL exists
+    if (!previewUrl) {
+      return null; // Don't render anything if no preview URL
+    }
+
+    return (
+      <View style={styles.recentInnerContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate('Music Player Screen', { songId: item.id })}>
+          <Image
+            source={ require('../../Utils/Images/Ed_Sheeran.jpg') } 
+            style={{ width: 150, height: 150 }}
+            onError={(error) => console.log('Error loading image:', error.nativeEvent.error)} 
+          />
+        </TouchableOpacity>
+        <Text style={styles.recentTitle}>{item.name}</Text>
+        <Text style={styles.recentText}>{item.artists.map((artist: any) => artist.name).join(', ')}</Text>
+      </View>
+    );
+  };
 
   if (loading) {
     return <ActivityIndicator size="large" color="#ffffff" />;

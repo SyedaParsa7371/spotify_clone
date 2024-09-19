@@ -25,6 +25,7 @@ function HomePlaylistScreenStack() {
         options={{
           headerShown: true,
           presentation:'modal',
+           headerTitleAlign: 'center',
           headerStyle: {
             backgroundColor: '#696060',
           },
