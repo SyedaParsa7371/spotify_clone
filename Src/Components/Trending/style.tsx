@@ -13,12 +13,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
     color: 'white',
+    width:150
   },
   trendingText: {
     fontSize: 16,
     color: '#fdfbfb',
-    textAlign: 'center',
+    
     marginTop: 5,
+    width:150
   },
   errorText: {
     textAlign: 'center',

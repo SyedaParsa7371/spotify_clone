@@ -63,16 +63,13 @@ function PlayListScreen() {
     setFormattedTime(formatted);
   }, [songs]);
 
-  const handlePlayNextSong = () => {
-    const nextIndex = currentSongIndex + 1;
-    if (nextIndex < songs.length) {
-      setCurrentSongIndex(nextIndex);
-      navigation.navigate('Music Player Screen', { 
-        songId: songs[nextIndex].id, 
-        playlist: songs // Pass the entire song list
-      });
-    }
-  };
+  // const handlePlayNextSong = () => {
+  //   const nextIndex = currentSongIndex + 1;
+  //   if (nextIndex < songs.length) {
+  //     setCurrentSongIndex(nextIndex);
+  //     navigation.navigate('Music Player Screen', {  songId: songs[nextIndex].id, playlist: songs});
+  //   }
+  // };
 
   if (loading) {
     return (
@@ -178,7 +175,7 @@ function PlayListScreen() {
           />
         </View>
         <View style={{ marginLeft: 280 }}>
-          <TouchableOpacity onPress={handlePlayNextSong}>
+          <TouchableOpacity > 
             <PlayIcon image={icons.playIcon} />
           </TouchableOpacity>
         </View>
@@ -188,8 +185,8 @@ function PlayListScreen() {
         <PlayCard
           songs={songs}
           onPress={songId => {
-            const songIndex = songs.findIndex(song => song.id === songId);
-            setCurrentSongIndex(songIndex);
+            // const songIndex = songs.findIndex(song => song.id === songId);
+            // setCurrentSongIndex(songIndex);
             navigation.navigate('Music Player Screen', { songId, playlist: songs });
           }}
         />

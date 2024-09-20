@@ -41,7 +41,7 @@ const fetchSpotifyAccessToken = async () => {
   }
 };
 
-// Function to refresh the access token
+
 const refreshToken = async () => {
   try {
     await AsyncStorage.removeItem(TOKEN_KEY);
@@ -52,7 +52,7 @@ const refreshToken = async () => {
   }
 };
 
-// Request interceptor to add the access token to every request
+
 axiosInstance.interceptors.request.use(
   async (config) => {
     try {
@@ -68,7 +68,6 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle token expiration and refreshing
 axiosInstance.interceptors.response.use(
   response => response,
   async (error) => {
@@ -87,7 +86,7 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// Function to get access token from AsyncStorage
+
 const getStoredToken = async () => {
   try {
     const token = await AsyncStorage.getItem(TOKEN_KEY);

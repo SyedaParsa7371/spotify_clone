@@ -35,11 +35,11 @@ const RecentSong = () => {
   }, []);
 
   const renderItem = ({ item }: { item: any }) => {
-    const previewUrl = item.preview_url; // Check for preview URL
+    const previewUrl = item.preview_url; 
 
-    // Only render the item if the preview URL exists
+
     if (!previewUrl) {
-      return null; // Don't render anything if no preview URL
+      return null; 
     }
 
     return (
@@ -51,8 +51,20 @@ const RecentSong = () => {
             onError={(error) => console.log('Error loading image:', error.nativeEvent.error)} 
           />
         </TouchableOpacity>
-        <Text style={styles.recentTitle}>{item.name}</Text>
-        <Text style={styles.recentText}>{item.artists.map((artist: any) => artist.name).join(', ')}</Text>
+        <Text 
+          style={styles.recentTitle} 
+          numberOfLines={1} 
+          ellipsizeMode="tail"
+        >
+          {item.name}
+        </Text>
+        <Text 
+          style={styles.recentText} 
+          numberOfLines={1} 
+          ellipsizeMode="tail"
+        >
+          {item.artists.map((artist: any) => artist.name).join(', ')}
+        </Text>
       </View>
     );
   };
@@ -90,12 +102,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
     color: 'white',
+    width: 150, 
   },
   recentText: {
     fontSize: 14,
     color: '#fdfbfb',
     textAlign: 'center',
     marginTop: 5,
+    width: 150, 
   },
   errorText: {
     textAlign: 'center',

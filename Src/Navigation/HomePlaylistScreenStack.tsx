@@ -23,6 +23,7 @@ function HomePlaylistScreenStack() {
         name="Music Player Screen"
         component={MusicPlayerScreen}
         options={{
+          headerTransparent:true,
           headerShown: true,
           presentation:'modal',
            headerTitleAlign: 'center',

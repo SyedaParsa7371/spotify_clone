@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   mainImgStyle: {
-    marginTop: 40,
+    marginTop: 70,
     width: 350,
-    height: 370,
+    height: 425,
     marginBottom: 15,
     marginLeft: 30,
   },

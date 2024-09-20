@@ -58,19 +58,21 @@ export interface IIcon {
         size?: number,
         color?: ColorValue | number,
         style?:any
+        onPress?: ((event: GestureResponderEvent) => void);
 }
 export interface IImage {
   image?: number;
   onPress?: ((event: GestureResponderEvent) => void);
   source?: ImageSourcePropType;
   children?:string
+
 }
 
 export interface IIonicons {
   name: string;
   size?: number;
   color?: ColorValue;
-  onPress?:()=>void
+  onPress?: ((event: GestureResponderEvent) => void);
 }
 
 export interface IAuthNavigation {
@@ -80,9 +82,22 @@ export interface IAuthNavigation {
 export interface ICardTop{
   children?:ReactNode,
   navigation?:any,
-  onPress?:any
+  onPress?: ((event: GestureResponderEvent) => void);
 }
 export interface IPlayListNavigation {
   navigation: PlayScreenNavigationProp;
   children?:ReactNode,
+}
+export interface IPlayCard{
+  songs: any[];
+  onPress: (songId: string) => void;
+}
+ export interface SongModalProps {
+  visible?: boolean;
+  onClose?: () => void;
+  selectedSong?: any;
+  onShare?: () => void;
+  onAlbum?:()=>void;
+  albumName?:any
+  
 }

@@ -3,11 +3,11 @@ import { TouchableOpacity, View } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { IIcon } from "../../Utils/Interface";
 
-const IoniconsIcon:FC<IIcon>=({name,size,color})=>{
+const IoniconsIcon:FC<IIcon>=({name,size,color,onPress})=>{
     return (
         <View>
             <TouchableOpacity>
-                <Ionicons name={name} size={30} color={color}/>
+                <Ionicons name={name} size={30} color={color} onPress={onPress}/>
             </TouchableOpacity>
         </View>
     )

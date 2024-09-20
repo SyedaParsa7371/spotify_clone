@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getSeveralTracks } from '../../Utils/Http/Api'; // Adjust import path as necessary
+import { getSeveralTracks } from '../../Utils/Http/Api';
 import styles from './style';
 
 const PlayListSong = () => {
@@ -18,7 +18,7 @@ const PlayListSong = () => {
       try {
         const data = await getSeveralTracks();
         console.log('API Response:', data); // Log the response for debugging
-        setTracks(data); // Set the tracks data directly
+        setTracks(data);
       } catch (err) {
         setError('Failed to fetch tracks. Check console for more details.');
         console.error(err);
@@ -34,13 +34,13 @@ const PlayListSong = () => {
     <View style={styles.trendingInnerContainer}>
       <TouchableOpacity onPress={() => navigation.navigate('Music Player Screen', { songId: item.id, })}>
         <Image
-          source={require('../../Utils/Images/Ed_Sheeran.jpg')} // Use album image URL
+          source={require('../../Utils/Images/Ed_Sheeran.jpg')} 
           style={{ width: 150, height: 150 }}
-          onError={(error) => console.log('Error loading image:', error.nativeEvent.error)} // Log image load errors
+          onError={(error) => console.log('Error loading image:', error.nativeEvent.error)} 
         />
       </TouchableOpacity>
-      <Text style={styles.trendingTitle}>{item.name}</Text>
-      <Text style={styles.trendingText}>Artist: {item.artists.map((artist: any) => artist.name).join(', ')}</Text>
+      <Text style={styles.trendingTitle} numberOfLines={1} ellipsizeMode='tail'>{item.name}</Text>
+      <Text style={styles.trendingText} numberOfLines={1} ellipsizeMode='tail'>Artist: {item.artists.map((artist: any) => artist.name).join(', ')}</Text>
     </View>
   );
   if (loading) {

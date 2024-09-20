@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useLayoutEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,11 +6,10 @@ import {
   StyleSheet,
   FlatList,
   ActivityIndicator,
-  Touchable,
   TouchableOpacity,
 } from 'react-native';
-import {getAlbum} from '../../Utils/Http/Api'; // Adjust import path as necessary
-import {useNavigation} from '@react-navigation/native';
+import { getAlbum } from '../../Utils/Http/Api'; // Adjust import path as necessary
+import { useNavigation } from '@react-navigation/native';
 
 const AlbumList = () => {
   const [albums, setAlbums] = useState<any[]>([]);
@@ -18,7 +17,8 @@ const AlbumList = () => {
   const [error, setError] = useState<string | null>(null);
 
   const navigation = useNavigation();
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     const fetchAlbums = async () => {
       setLoading(true);
       setError(null);
@@ -27,7 +27,6 @@ const AlbumList = () => {
         const data = await getAlbum();
         console.log('Fetched albums:', data); // Log full response data for debugging
 
-  
         if (data && data.items && Array.isArray(data.items)) {
           setAlbums(data.items);
         } else {
@@ -48,36 +47,45 @@ const AlbumList = () => {
     if (!item || !item.images || !item.images.length) {
       return <Text style={styles.errorText}>No data available</Text>;
     }
-  
+
     const imageUri = item.images[0]?.url || '';
-  
-    // Define a character limit for the first line
-    const charLimit = 20;
-    const albumName = item.name || 'Unknown';
-    const firstPart = albumName.slice(0, charLimit);
-    const secondPart = albumName.slice(charLimit);
-  
+
     return (
       <View style={styles.itemContainer}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Play List Screen', { albumId: item.id })}
-        >
+          onPress={() =>
+            navigation.navigate('Play List Screen', { albumId: item.id })
+          }>
           {imageUri ? (
-            <Image source={require('../../Utils/Images/Ed_Sheeran.jpg')} style={styles.image} />
+            <Image
+              source={require('../../Utils/Images/Ed_Sheeran.jpg')}
+              style={styles.image}
+            />
           ) : (
             <Text style={styles.errorText}>No image available</Text>
           )}
-          <Text style={styles.name}>{firstPart}</Text>
-          {secondPart.length > 0 && <Text style={styles.name}>{secondPart}</Text>}
-          <Text style={styles.artists}>
-            Artists: {item.artists.map((artist: any) => artist.name).join(', ') || 'Unknown'}
+          <Text
+            style={styles.names}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {item.name || 'Unknown'}
+          </Text>
+
+          <Text
+            style={styles.artists}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            Artists:{' '}
+            {item.artists.map((artist: any) => artist.name).join(', ') ||
+              'Unknown'}
           </Text>
         </TouchableOpacity>
       </View>
     );
   };
-  
-  
+
   if (loading) {
     return <ActivityIndicator size="large" color="#ffffff" />;
   }
@@ -111,23 +119,20 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
-  name: {
+  names: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
+    width: 150,
   },
   artists: {
     fontSize: 16,
     color: 'white',
-  },
-  releaseDate: {
-    fontSize: 14,
-    textAlign: 'center',
-    color: 'white',
+    width: 150, 
   },
   errorText: {
     textAlign: 'center',
-    fontSize:16,
+    fontSize: 16,
     color: 'red',
   },
 });

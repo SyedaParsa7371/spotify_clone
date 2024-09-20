@@ -1,33 +1,45 @@
-import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, ScrollView, Share, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Sound from 'react-native-sound';
 import Slider from '@react-native-community/slider';
-import {getTrack} from '../../Utils/Http/Api';
-import {BackIcon} from '../../Components/IconButton';
-import {icons} from '../../Utils/Images';
+import { getTrack } from '../../Utils/Http/Api';
+import { BackIcon } from '../../Components/IconButton';
+import { icons } from '../../Utils/Images';
 import Ionicons from '../../Utils/Ionicons';
 import styles from './style';
+import SongModal from '../../Components/Modal';
 
 const MusicPlayerScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const {songId, playlist = []} = route.params; // Default to empty array if undefined
-  const [trackData, setTrackData] = useState<any>(null);
-  const [duration, setDuration] = useState<number>(0);
-  const [position, setPosition] = useState<number>(0);
-  const [sound, setSound] = useState<Sound | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [currentIndex, setCurrentIndex] = useState<number>(0); // Current song index
+  const { songId, playlist = [] } = route.params; 
+  const [trackData, setTrackData] = useState(null);
+  const [duration, setDuration] = useState(0);
+  const [position, setPosition] = useState(0);
+  const [sound, setSound] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0); 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedSong, setSelectedSong] = useState(null);
+
+  const handleIconPress = () => {
+    if (trackData) {
+      setSelectedSong(trackData); 
+      setModalVisible(true);
+    }
+  };
 
   const fetchTrack = async (id: string) => {
     try {
       const data = await getTrack(id);
+      // console.log('Track data:', data); 
       if (!data || !data.preview_url) {
         throw new Error('Invalid track data or preview URL missing');
       }
       setTrackData(data);
+      setSelectedSong(data); 
       const newSound = new Sound(data.preview_url, Sound.MAIN_BUNDLE, error => {
         if (error) {
           console.error('Error loading track:', error);
@@ -42,7 +54,7 @@ const MusicPlayerScreen = () => {
   };
 
   useEffect(() => {
-    fetchTrack(songId); // Fetch initial track
+    fetchTrack(songId); 
 
     return () => {
       if (sound) {
@@ -83,6 +95,12 @@ const MusicPlayerScreen = () => {
       console.log('Reached start of playlist');
     }
   };
+  const handleShuffleTrack = () => {
+    const randomIndex = Math.floor(Math.random() * playlist.length); 
+    setCurrentIndex(randomIndex);
+    fetchTrack(playlist[randomIndex].id); 
+    setIsPlaying(false); 
+  };
 
   const handleSeek = (value: number) => {
     if (sound) {
@@ -93,7 +111,7 @@ const MusicPlayerScreen = () => {
   useEffect(() => {
     const updatePosition = () => {
       if (sound) {
-        sound.getCurrentTime(seconds => {
+        sound.getCurrentTime((seconds: React.SetStateAction<number>) => {
           setPosition(seconds);
         });
       }
@@ -106,15 +124,18 @@ const MusicPlayerScreen = () => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Ionicons
-          name="ellipsis-vertical-outline"
-          size={24}
-          color="white"
-          onPress={() => {}}
-        />
+        <View style={{marginRight:10}}>
+
+          <Ionicons
+            name="ellipsis-vertical-outline"
+            size={24}
+            color="white"
+           
+          />
+        </View>
       ),
       headerLeft: () => (
-        <View style={{marginLeft: 10}}>
+        <View style={{ marginLeft: 10 }}>
           <BackIcon
             image={icons.downIcon}
             onPress={() => navigation.goBack()}
@@ -134,14 +155,26 @@ const MusicPlayerScreen = () => {
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
-    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(
-      2,
-      '0',
-    )}`;
+    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  };
+
+  const shareSong = async () => {
+    console.log('Selected song:', selectedSong); // Debug log
+    if (selectedSong?.preview_url) {
+      try {
+        await Share.share({
+          message: `Check out this song: ${selectedSong.name} Link of song: ${selectedSong.preview_url}`,
+        });
+      } catch (error) {
+        console.log('Error sharing the song:', error.message);
+      }
+    } else {
+      console.log('No preview URL available');
+    }
   };
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView style={{ flex: 1 }}>
       <LinearGradient
         colors={['#696060', '#535151', '#161515']}
         style={styles.linearStyle}>
@@ -159,13 +192,13 @@ const MusicPlayerScreen = () => {
           </Text>
           <Text style={styles.middlecontainHead}>
             {trackData
-              ? trackData.artists.map((artist: any) => artist.name).join(', ')
+              ? trackData.artists.map((artist: { name: any; }) => artist.name).join(', ')
               : ''}
           </Text>
         </View>
 
         <Slider
-          style={{width: 350, height: 40, marginLeft: 30}}
+          style={{ width: 350, height: 40, marginLeft: 30 }}
           minimumValue={0}
           maximumValue={duration}
           minimumTrackTintColor="#FFFFFF"
@@ -184,7 +217,7 @@ const MusicPlayerScreen = () => {
           </Text>
         </View>
         <View style={styles.imgcontain}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>handleShuffleTrack()}>
             <Image
               source={require('../../Utils/Images/shufle_icon.png')}
               style={styles.shuffleimg}
@@ -219,20 +252,26 @@ const MusicPlayerScreen = () => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{flexDirection: 'row', marginTop: 20}}>
+        <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <TouchableOpacity>
             <Image
               source={require('../../Utils/Images/cast_icon.png')}
               style={styles.castimg}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={shareSong}>
             <Image
               source={require('../../Utils/Images/share_icon.png')}
               style={styles.shareimg}
             />
           </TouchableOpacity>
         </View>
+        <SongModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          selectedSong={selectedSong}
+          onShare={shareSong}
+        />
       </LinearGradient>
     </ScrollView>
   );
