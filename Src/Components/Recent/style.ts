@@ -1,28 +1,33 @@
 import { StyleSheet } from "react-native"
+import Colors from "../../Utils/Colors";
 
 const styles = StyleSheet.create({
-    recentContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    recentInnerContainer: {
-      alignItems: 'center',
-      paddingTop: 10
-    },
-    recentTitle: {
-      width: 175,
-      paddingLeft: 15,
-      textAlign: 'left',
-      color: 'white',
-      fontWeight: 'bold'
-    },
-    recentText: {
-      width: 175,
-      paddingLeft: 13,
-      textAlign: 'left',
-      color: 'white',
-      paddingBottom: 20,
-    }
+  recentContainer: {
+    padding: 20,
+  },
+  recentInnerContainer: {
+    marginRight: 20,
+    alignItems: 'center',
+  },
+  recentTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
+    color:Colors.primarywhite,
+    width: 150, 
+  },
+  recentText: {
+    fontSize: 14,
+    color: '#fdfbfb',
+    textAlign: 'center',
+    marginTop: 5,
+    width: 150, 
+  },
+  errorText: {
+    textAlign: 'center',
+    color: Colors.primaryred,
+    fontSize: 16,
+  },
   });
   
 export default styles

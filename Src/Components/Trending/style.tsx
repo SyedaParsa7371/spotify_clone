@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import Colors from "../../Utils/Colors";
 
 const styles = StyleSheet.create({
   trendingContainer: {
@@ -12,19 +13,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,
-    color: 'white',
+    color: Colors.primarywhite,
     width:150
   },
   trendingText: {
     fontSize: 16,
-    color: '#fdfbfb',
+    color: Colors.trendText,
     
     marginTop: 5,
     width:150
   },
   errorText: {
     textAlign: 'center',
-    color: 'red',
+    color: Colors.primaryred,
     fontSize: 16,
   },
 });

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { getAlbum } from '../../Utils/Http/Api'; // Adjust import path as necessary
 import { useNavigation } from '@react-navigation/native';
+import Colors from '../../Utils/Colors';
 
 const AlbumList = () => {
   const [albums, setAlbums] = useState<any[]>([]);
@@ -25,7 +26,7 @@ const AlbumList = () => {
 
       try {
         const data = await getAlbum();
-        console.log('Fetched albums:', data); // Log full response data for debugging
+        //console.log('Fetched albums:', data); // Log full response data for debugging
 
         if (data && data.items && Array.isArray(data.items)) {
           setAlbums(data.items);
@@ -122,18 +123,18 @@ const styles = StyleSheet.create({
   names: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'white',
+    color: Colors.primarywhite,
     width: 150,
   },
   artists: {
     fontSize: 16,
-    color: 'white',
+    color: Colors.primarywhite,
     width: 150, 
   },
   errorText: {
     textAlign: 'center',
     fontSize: 16,
-    color: 'red',
+    color: Colors.primaryred,
   },
 });
 

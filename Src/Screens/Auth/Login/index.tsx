@@ -1,19 +1,18 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {Text, View} from 'react-native';
-import Button, {
-  ButtonsLogin,
-  ButtonsLoginss,
-  ButtonsSignUp,
-  ButtonsSignUps,
-} from '../../../Components/Button';
-import styles from './style';
-import IconButton, {IconButtons} from '../../../Components/IconButton';
-import {icons} from '../../../Utils/Images';
-import {FC} from 'react';
-import {IAuthNavigation} from '../../../Utils/Interface';
+import {useDispatch} from 'react-redux';
+import {ButtonsSignUps} from '../../../Components/Button';
+import {IconButtons} from '../../../Components/IconButton';
 import InputText from '../../../Components/TextInput';
+import {fetchSpotifyAccessToken} from '../../../Utils/Http/Api';
+import {icons} from '../../../Utils/Images';
+import {IAuthNavigation} from '../../../Utils/Interface';
+import styles from './style';
+import {logedIn} from '../../../Utils/Store/redux/Stores';
 
 const Login: FC<IAuthNavigation> = ({navigation}) => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState<string>('parsa@gmail.com');
   const [password, setPassword] = useState<string>('12345678');
   const [errors, setErrors] = useState<{
@@ -21,8 +20,6 @@ const Login: FC<IAuthNavigation> = ({navigation}) => {
     email?: string;
     password?: string;
   }>({});
-
- 
 
   const validateInputs = () => {
     const newErrors: {email?: string; password?: string} = {};
@@ -43,10 +40,10 @@ const Login: FC<IAuthNavigation> = ({navigation}) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (validateInputs()) {
-      console.log('Sign up successful');
-      navigation.navigate('HomeScreen');
+      let token = await fetchSpotifyAccessToken();
+      dispatch(logedIn({access_token: token}));
     }
   };
 
@@ -83,10 +80,19 @@ const Login: FC<IAuthNavigation> = ({navigation}) => {
         <View style={{marginTop: 30}}>
           <ButtonsSignUps onPress={handleSignUp}>Log In</ButtonsSignUps>
         </View>
-        <View style={{justifyContent:'center',alignItems:'center',marginTop:20}}>
-          <Text style={{color:'white',fontSize:20,}}>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <Text style={{color: 'white', fontSize: 20}}>
             Don't Have an account{' '}
-            <Text onPress={() => navigation.navigate('Signup')} style={{color:'#348d37',textDecorationLine: 'underline'}}>Sign Up</Text>
+            <Text
+              onPress={() => navigation.navigate('Signup')}
+              style={{color: '#348d37', textDecorationLine: 'underline'}}>
+              Sign Up
+            </Text>
           </Text>
         </View>
       </View>

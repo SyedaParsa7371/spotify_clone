@@ -172,11 +172,29 @@ const MusicPlayerScreen = () => {
       console.log('No preview URL available');
     }
   };
-
+  useEffect(() => {
+    // Hide the bottom tab bar when this screen is focused
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {display: 'none'},
+    });
+    return () => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          backgroundColor: 'transparent',
+          position: 'absolute',
+          borderTopWidth: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          elevation: 0,
+        },
+      });
+    };
+  }, [navigation]);
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient
-        colors={['#696060', '#535151', '#161515']}
+        colors={['#5E5A4F', '#35322D', '#1D1C1A']}
         style={styles.linearStyle}>
         <View>
           <Image

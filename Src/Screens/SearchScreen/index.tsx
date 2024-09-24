@@ -3,9 +3,9 @@ import { ScrollView, SectionList, Text, View, FlatList, StyleSheet, ActivityIndi
 import SearchBar from "../../Components/SearchBar";
 import CardTop from "../../Components/CardTop";
 import styles from "./style";
-import { getSpotifyCategories, getSpotifyGeneres } from "../../Utils/Http/Api";
+import { getSpotifyCategories, getSpotifyGenres } from "../../Utils/Http/Api";
 
-const chunkyArray = (data: any[], chunkSize: number) => {
+const chunkArray = (data: any[], chunkSize: number) => {
   const chunks = [];
   for (let i = 0; i < data.length; i += chunkSize) {
     chunks.push(data.slice(i, i + chunkSize));
@@ -14,21 +14,21 @@ const chunkyArray = (data: any[], chunkSize: number) => {
 };
 
 function SearchScreen() {
-  const [categories, setCategories] = useState<any[]>([]);
-  const [genere, setGenere] = useState<any[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [genres, setGenres] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const numColumns = 2;
 
-  const updatedDatas = [
+  const updatedData = [
     {
       title: 'Top Genres',
-      data: chunkyArray(genere, numColumns),
+      data: chunkArray(genres, numColumns),
     },
     {
       title: 'Browse All',
-      data: chunkyArray(categories, numColumns),
+      data: chunkArray(categories, numColumns),
     },
   ];
 
@@ -59,14 +59,14 @@ function SearchScreen() {
       }
     };
 
-    const fetchGeneres = async () => {
+    const fetchGenres = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const data = await getSpotifyGeneres();
-        const fetchedGeneres = data.genres.map((genere: any) => genere); // Adjust based on actual response structure
-        setGenere(fetchedGeneres);
+        const data = await getSpotifyGenres();
+        const fetchedGenres = data.genres; 
+        setGenres(fetchedGenres);
       } catch (err) {
         setError('Failed to fetch genres. Check console');
         console.error(err);
@@ -76,22 +76,30 @@ function SearchScreen() {
     };
 
     fetchCategories();
-    fetchGeneres();
+    fetchGenres();
   }, []);
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
+  if (error) {
+    return (
+      <View style={styles.scrollStyle}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    );
+  }
+
   return (
-    <ScrollView style={styles.scrollStyle}>
+    <View style={styles.scrollStyle}>
       <View style={styles.searchContainer}>
         <Text style={styles.searchText}>Search</Text>
         <SearchBar />
       </View>
 
       <SectionList
-        sections={updatedDatas}
+        sections={updatedData}
         keyExtractor={(item, index) => item + index}
         renderSectionHeader={renderSectionHeader}
         renderItem={({ item }) => (
@@ -104,14 +112,14 @@ function SearchScreen() {
           />
         )}
       />
-    </ScrollView>
+    </View>
   );
 }
 
 const localStyles = StyleSheet.create({
   itemContainer: {
     flex: 1,
-    padding: 10,
+    padding: 4,
   },
 });
 

@@ -17,7 +17,7 @@ const PlayListSong = () => {
 
       try {
         const data = await getSeveralTracks();
-        console.log('API Response:', data); // Log the response for debugging
+       // console.log('API Response:', data); // Log the response for debugging
         setTracks(data);
       } catch (err) {
         setError('Failed to fetch tracks. Check console for more details.');

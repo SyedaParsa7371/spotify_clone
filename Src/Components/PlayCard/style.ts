@@ -1,12 +1,13 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   rootContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 5
-    , width: '95%'
+    marginVertical: 5,
+    width: '95%',
+    marginBottom:15
   },
   imageTextContainer: {
     flexDirection: 'row',
@@ -15,11 +16,9 @@ export const styles = StyleSheet.create({
   imageStyle: {
     width: 45,
     height: 50,
-    marginRight: 10, // Reduced margin to decrease gap
+    marginRight: 10, 
   },
-  textContainer: {
-  
-  },
+  textContainer: {},
   titleTextStyle: {
     marginVertical: 5,
     color: 'white',
@@ -48,34 +47,34 @@ export const styles = StyleSheet.create({
   iconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 10, 
+    paddingHorizontal: 10,
   },
   modalContainer: {
     flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalView: {
-    marginTop:'105%',
+    marginTop: '105%',
     width: '100%',
-    height:'50%',
+    height: '50%',
     backgroundColor: '#0e0d0d',
     borderRadius: 20,
     padding: 20,
     // alignItems: 'center',
-    elevation: 5, 
+    elevation: 5,
   },
   modalTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-     color:'white'
+    color: 'white',
   },
   modalText: {
     fontSize: 18,
     textAlign: 'center',
-    color:'white'
+    color: 'white',
   },
   button: {
     borderRadius: 10,
@@ -83,10 +82,9 @@ export const styles = StyleSheet.create({
     elevation: 2,
     backgroundColor: '#2196F3',
   },
-  shareImg:{
+  shareImg: {
     height: 20,
     width: 20,
     marginTop: 5,
-  }
-
+  },
 });

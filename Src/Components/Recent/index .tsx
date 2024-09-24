@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Image, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getRecommendations } from '../../Utils/Http/Api'; // Adjust import path as necessary
+import { getRecommendations } from '../../Utils/Http/Api';
+import styles from './style';
 
 const RecentSong = () => {
   const navigation = useNavigation();
@@ -16,7 +17,7 @@ const RecentSong = () => {
 
       try {
         const data = await getRecommendations();
-        console.log('Fetched recommendations:', data); // Log data for debugging
+       // console.log('Fetched recommendations:', data); 
 
         if (data && Array.isArray(data)) {
           setTracks(data);
@@ -35,6 +36,7 @@ const RecentSong = () => {
   }, []);
 
   const renderItem = ({ item }: { item: any }) => {
+    
     const previewUrl = item.preview_url; 
 
 
@@ -89,33 +91,6 @@ const RecentSong = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  recentContainer: {
-    padding: 20,
-  },
-  recentInnerContainer: {
-    marginRight: 20,
-    alignItems: 'center',
-  },
-  recentTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 10,
-    color: 'white',
-    width: 150, 
-  },
-  recentText: {
-    fontSize: 14,
-    color: '#fdfbfb',
-    textAlign: 'center',
-    marginTop: 5,
-    width: 150, 
-  },
-  errorText: {
-    textAlign: 'center',
-    color: 'red',
-    fontSize: 16,
-  },
-});
+
 
 export default RecentSong;

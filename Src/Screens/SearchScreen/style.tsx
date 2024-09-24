@@ -32,6 +32,10 @@ const styles = StyleSheet.create({
         fontSize:20,
         fontWeight:'bold'
     },
+    errorText:{
+        color:'red',
+        fontSize:16
+    }
 
 })
 export default styles

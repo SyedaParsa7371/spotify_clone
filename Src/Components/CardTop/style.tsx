@@ -2,15 +2,16 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     rootcontainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        borderRadius: 5,
+        margin: 5,
     },
     CardContainer: {
-        height: 100, width: 190,
-        backgroundColor: "#7f499e",
+        height: 100, 
+        width: 190,
         borderRadius: 5,
         marginLeft: 10,
         marginTop: 15,
-        margin:5
     },
     CardText: {
         color: 'white',
@@ -18,7 +19,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: 19,
         fontWeight: 'bold',
-        marginBottom:40
+        marginBottom: 40,
     }
-})
-export default styles
+});
+
+export default styles;

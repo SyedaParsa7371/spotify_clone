@@ -4,13 +4,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 
 import SplashScreen from 'react-native-splash-screen';
-import Login from './Src/Screens/Auth/Login';
-import IntialScreen from './Src/Screens/Auth/IntialScreen';
-import SignUp from './Src/Screens/Auth/SignUp';
-import HomeScreen from './Src/Screens/Home';
-import BottomTabNavigation from './Src/Navigation/BottomNavigation';
-import PlayListScreen from './Src/Screens/PlayList';
-import TopCard from './Src/Components/SearchTopCard';
+
+
+import { Provider } from 'react-redux';
+
+import { persistor, store } from './Src/Utils/Store/redux/store';
+import MainNavigation from './Src/Navigation/MainNavigation';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const Stack = createNativeStackNavigator()
 
@@ -19,19 +19,12 @@ function App() {
     SplashScreen.hide()
   }, [])
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="IntialScreen" component={IntialScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Signup" component={SignUp} options={{ headerShown: false }} />
-        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name="HomeScreen" component={BottomTabNavigation} options={{ headerShown: false }} />
-        {/* <Stack.Screen name='PlayListScreen' component={PlayListScreen} options={{ headerShown: false }}/> */}
-
-        <Stack.Screen name="BottomNavigation" component={BottomTabNavigation} />
-
-      </Stack.Navigator>
-
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+      <MainNavigation/>
+      </PersistGate>
+     
+    </Provider>
   )
 }
 

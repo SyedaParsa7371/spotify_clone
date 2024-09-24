@@ -13,21 +13,28 @@ const Tab = createBottomTabNavigator();
 function BottomTabNavigation() {
   return (
     <Tab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: '#ffffff',
-        tabBarInactiveTintColor: '#6e6060',
-        tabBarActiveBackgroundColor: '#2b232300',
-        tabBarLabelStyle: { fontSize: 14 },
-        tabBarStyle: {
-          backgroundColor: '#00000000',
-          position: 'absolute',
-          borderTopWidth: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          elevation: 0,
+    screenOptions={{
+      tabBarActiveTintColor: '#ffffff',
+      tabBarInactiveTintColor: '#6e6060',
+      
+      tabBarLabelStyle: { fontSize: 14 },
+      tabBarStyle: {
+        backgroundColor: 'rgba(0, 0, 0, 0.2)', 
+        position: 'absolute',
+        borderTopWidth: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        elevation: 5, 
+        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowOffset: {
+          width: 0,
+          height: 2,
         },
-        headerShown: false,
+        shadowOpacity: 0.1, 
+        shadowRadius: 4,
+      },
+      headerShown: false,
       }}>
       <Tab.Screen
         name="Home Screen"

@@ -5,6 +5,7 @@ import {
   View,
   ActivityIndicator,
   TouchableOpacity,
+  Share,
 } from 'react-native';
 import {
   BackIcon,
@@ -17,6 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import IoniconsIcon from '../../Components/IoniconButton';
 import PlayCard from '../../Components/PlayCard';
 import { getAlbumSongs } from '../../Utils/Http/Api';
+import SongModal from '../../Components/Modal';
 
 function PlayListScreen() {
   const navigation = useNavigation();
@@ -28,7 +30,27 @@ function PlayListScreen() {
   const [error, setError] = useState<string | null>(null);
   const [showAllArtists, setShowAllArtists] = useState<boolean>(false);
   const [formattedTime, setFormattedTime] = useState('');
-  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0); // New state for current song index
+  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0); 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedSong, setSelectedSong] = useState<any>(null);
+
+  const handleIconPress = (song: any) => {
+    setSelectedSong(song);
+    setModalVisible(true);
+  };
+  const shareSong = async () => {
+    if (selectedSong?.preview_url) {
+      try {
+        await Share.share({
+          message: `Check out this song: ${selectedSong.name} Link of song: ${selectedSong.preview_url}`,
+        });
+      } catch (error:any) {
+        console.log('Error sharing the song:', error.message);
+      }
+    } else {
+      console.log('No preview URL available');
+    }
+  };
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -71,6 +93,8 @@ function PlayListScreen() {
   //   }
   // };
 
+
+
   if (loading) {
     return (
       <ActivityIndicator
@@ -90,7 +114,7 @@ function PlayListScreen() {
 
   return (
     <LinearGradient
-      colors={['#5e5e5e', '#181616', '#1a1919']}
+      colors={['#52534E', '#272725', '#121212']}
       style={{ flex: 1 }}>
       <View style={{ flexDirection: 'row', marginTop: 20, marginLeft: 9 }}>
         <BackIcon
@@ -171,7 +195,8 @@ function PlayListScreen() {
           <IoniconsIcon
             name="ellipsis-vertical-outline"
             color="white"
-            style={{ marginLeft: 10 }}
+            style={{ marginLeft: 10 }} 
+             onPress={handleIconPress}
           />
         </View>
         <View style={{ marginLeft: 280 }}>
@@ -191,7 +216,14 @@ function PlayListScreen() {
           }}
         />
       </View>
+      <SongModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        selectedSong={selectedSong}
+        onShare={shareSong}
+      />
     </LinearGradient>
+    
   );
 }
 
