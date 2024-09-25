@@ -47,7 +47,7 @@ const PlayCard: FC<IPlayCard> = ({ songs, onPress }) => {
 
 
   return (
-    <View style={{ flex: 1 }}>
+   <>
       <FlatList
         data={songs}
         renderItem={({ item }) => {
@@ -94,7 +94,7 @@ const PlayCard: FC<IPlayCard> = ({ songs, onPress }) => {
         selectedSong={selectedSong}
         onShare={shareSong} 
            />
-    </View>
+   </>
   );
 };
 

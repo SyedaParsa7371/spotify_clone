@@ -19,7 +19,7 @@ function BottomTabNavigation() {
       
       tabBarLabelStyle: { fontSize: 14 },
       tabBarStyle: {
-        backgroundColor: 'rgba(0, 0, 0, 0.2)', 
+        backgroundColor: 'rgba(44, 41, 41, 0.2)', 
         position: 'absolute',
         borderTopWidth: 0,
         left: 0,

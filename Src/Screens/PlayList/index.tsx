@@ -1,56 +1,93 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Image,
   Text,
   View,
   ActivityIndicator,
   TouchableOpacity,
   Share,
 } from 'react-native';
-import {
-  BackIcon,
-  PlayIcon,
-  SpotifyIcon,
-} from '../../Components/IconButton';
-import { icons } from '../../Utils/Images';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {BackIcon, PlayIcon, SpotifyIcon} from '../../Components/IconButton';
+import {icons} from '../../Utils/Images';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import IoniconsIcon from '../../Components/IoniconButton';
 import PlayCard from '../../Components/PlayCard';
-import { getAlbumSongs } from '../../Utils/Http/Api';
+import {getAlbumSongs} from '../../Utils/Http/Api';
 import SongModal from '../../Components/Modal';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  interpolate,
+} from 'react-native-reanimated';
+import styles from './style';
 
 function PlayListScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { albumId } = route.params;
+  const {albumId} = route.params;
   const [songs, setSongs] = useState<any[]>([]);
   const [artists, setArtists] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [showAllArtists, setShowAllArtists] = useState<boolean>(false);
   const [formattedTime, setFormattedTime] = useState('');
-  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0); 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedSong, setSelectedSong] = useState<any>(null);
+
+  const offsetY = useSharedValue(0);
+
+  const reanimatedImageStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(offsetY.value, [0, 400], [1, 0], 'clamp');
+    const translateY = interpolate(offsetY.value, [0, 150], [0, 100], 'clamp'); 
+    return {
+      transform: [ { translateY }],
+     opacity
+    };
+  });
+  
+  const reanimatedStyle = useAnimatedStyle(() => {
+    const scale = interpolate(offsetY.value*0.5, [0, 100], [1, 0.2], 'clamp'); 
+    const opacity = interpolate(offsetY.value, [0, 150], [1, 0], 'clamp');
+  
+    return {
+      transform: [{ scale }],
+      opacity,
+    };
+  });
+  
+  const reanimatedTextStyle = useAnimatedStyle(() => {
+   
+    const translateY = interpolate(offsetY.value, [0, 170], [0, -100], 'clamp'); 
+    return {
+     translateY 
+     
+    };
+  });
+  
 
   const handleIconPress = (song: any) => {
     setSelectedSong(song);
     setModalVisible(true);
   };
+
   const shareSong = async () => {
     if (selectedSong?.preview_url) {
       try {
         await Share.share({
           message: `Check out this song: ${selectedSong.name} Link of song: ${selectedSong.preview_url}`,
         });
-      } catch (error:any) {
+      } catch (error: any) {
         console.log('Error sharing the song:', error.message);
       }
     } else {
       console.log('No preview URL available');
     }
   };
+
+  const handleScroll = (event: any) => {
+    offsetY.value = event.nativeEvent.contentOffset.y;
+  };
+
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -77,7 +114,10 @@ function PlayListScreen() {
   useEffect(() => {
     if (songs.length === 0) return;
 
-    const totalDurationMs = songs.reduce((acc, song) => acc + song.duration_ms, 0);
+    const totalDurationMs = songs.reduce(
+      (acc, song) => acc + song.duration_ms,
+      0,
+    );
     const hours = Math.floor(totalDurationMs / 3600000);
     const minutes = Math.floor((totalDurationMs % 3600000) / 60000);
     const seconds = Math.floor((totalDurationMs % 60000) / 1000);
@@ -85,28 +125,18 @@ function PlayListScreen() {
     setFormattedTime(formatted);
   }, [songs]);
 
-  // const handlePlayNextSong = () => {
-  //   const nextIndex = currentSongIndex + 1;
-  //   if (nextIndex < songs.length) {
-  //     setCurrentSongIndex(nextIndex);
-  //     navigation.navigate('Music Player Screen', {  songId: songs[nextIndex].id, playlist: songs});
-  //   }
-  // };
-
-
-
   if (loading) {
     return (
       <ActivityIndicator
         size="large"
         color="#ffffff"
-        style={{ backgroundColor: '#121212', flex: 1 }}
+        style={{backgroundColor: '#121212', flex: 1}}
       />
     );
   }
 
   if (error) {
-    return <Text style={{ color: '#faf8f8', textAlign: 'center' }}>{error}</Text>;
+    return <Text style={styles.errorText}>{error}</Text>;
   }
 
   const displayedArtists = showAllArtists ? artists : artists.slice(0, 3);
@@ -115,115 +145,93 @@ function PlayListScreen() {
   return (
     <LinearGradient
       colors={['#52534E', '#272725', '#121212']}
-      style={{ flex: 1 }}>
-      <View style={{ flexDirection: 'row', marginTop: 20, marginLeft: 9 }}>
-        <BackIcon
-          image={icons.backIcon}
-          onPress={() => navigation.goBack()}
-        />
-        <View style={{ marginLeft: 70 }}>
-          <Image
-            source={require('../../Utils/Images/Ed_Sheeran.jpg')}
-            style={{ width: 220, height: 250, marginBottom: 15 }}
-          />
+      style={styles.linearStyle}>
+      <Animated.ScrollView onScroll={handleScroll} scrollEventThrottle={16}>
+        <View style={[styles.headerIcon]}>
+         
+          <Animated.View style={[styles.imageView,reanimatedImageStyle]}>
+            <Animated.Image
+              source={require('../../Utils/Images/Ed_Sheeran.jpg')}
+              style={[styles.imageStyle, reanimatedStyle]}
+            />
+          </Animated.View>
         </View>
-      </View>
-
-      <View>
-        <View
-          style={{
-            marginTop: 20,
-            marginLeft: 10,
-            flexDirection: 'row',
-            maxWidth: '100%',
-            flexWrap: 'wrap',
-          }}>
-          <Text style={{ color: '#a5a1a1', fontSize: 16, marginTop: 1 }}>
+        <Animated.View style={[reanimatedTextStyle]}>
+        <View style={styles.sectionStyle}>
+          <Text style={styles.sectionTextStyle}>
             Tune in to Top Tracks from{' '}
           </Text>
           {displayedArtists.map((artist, index) => (
             <Text
               key={index}
-              style={{ color: '#a5a1a1', fontSize: 16, marginVertical: 1 }}>
+              style={styles.sectionTextStyle}>
               {artist}
               {index < displayedArtists.length - 1 ? ' , ' : ''}
             </Text>
           ))}
-
           {artists.length > 2 && (
-            <TouchableOpacity onPress={() => setShowAllArtists(!showAllArtists)}>
-              <Text
-                style={{
-                  color: '#1a7228',
-                  marginHorizontal: 7,
-                  fontSize: 16,
-                  marginTop: 1,
-                  fontWeight: 'bold',
-                }}>
+            <TouchableOpacity
+              onPress={() => setShowAllArtists(!showAllArtists)}>
+              <Text style={styles.sectionButton}>
                 {showAllArtists ? 'Show Less' : 'Show More'}
               </Text>
             </TouchableOpacity>
           )}
         </View>
-      </View>
 
-      <View style={{ flexDirection: 'row' }}>
-        <SpotifyIcon image={icons.login} />
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 17,
-            fontWeight: 'bold',
-            marginTop: 24,
-          }}>
-          Spotify
-        </Text>
-      </View>
+        <View style={{flexDirection: 'row'}}>
+          <SpotifyIcon image={icons.login} />
+          <Text
+            style={styles.section2Text}>
+            Spotify
+          </Text>
+        </View>
 
-      <View style={{ flexDirection: 'row' }}>
-        <Text style={{ color: 'white', marginLeft: 8 }}>
-          Total Tracks: {totalTracks}
-        </Text>
-        <Text style={{ color: 'white', marginLeft: 8 }}>
-          {formattedTime}
-        </Text>
-      </View>
+        <View style={styles.section3Styles}>
+          <Text style={styles.section3Text}>
+            Total Tracks: {totalTracks}
+          </Text>
+          <Text style={styles.section3Text}>{formattedTime}</Text>
+        </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', width: '95%' }}>
-        <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 10 }}>
-          <IoniconsIcon name="heart-outline" color="white" />
-          <IoniconsIcon
-            name="ellipsis-vertical-outline"
-            color="white"
-            style={{ marginLeft: 10 }} 
-             onPress={handleIconPress}
+        <View
+          style={styles.section4Styles}>
+          <View style={styles.section4View}>
+            <IoniconsIcon name="heart-outline" color="white" />
+            <IoniconsIcon
+              name="ellipsis-vertical-outline"
+              color="white"
+              style={styles.section4Icon}
+              onPress={() => handleIconPress(selectedSong)}
+            />
+          </View>
+          <View style={styles.section4Icon2}>
+            <TouchableOpacity>
+              <PlayIcon image={icons.playIcon} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.playCardView}>
+          <PlayCard
+            songs={songs}
+            onPress={songId => {
+              navigation.navigate('Music Player Screen', {
+                songId,
+                playlist: songs,
+              });
+            }}
           />
         </View>
-        <View style={{ marginLeft: 280 }}>
-          <TouchableOpacity > 
-            <PlayIcon image={icons.playIcon} />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={{ marginTop: 20, marginLeft: 10, flex: 1 }}>
-        <PlayCard
-          songs={songs}
-          onPress={songId => {
-            // const songIndex = songs.findIndex(song => song.id === songId);
-            // setCurrentSongIndex(songIndex);
-            navigation.navigate('Music Player Screen', { songId, playlist: songs });
-          }}
+        <SongModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          selectedSong={selectedSong}
+          onShare={shareSong}
         />
-      </View>
-      <SongModal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        selectedSong={selectedSong}
-        onShare={shareSong}
-      />
+        </Animated.View>
+      </Animated.ScrollView>
     </LinearGradient>
-    
   );
 }
 
