@@ -172,8 +172,9 @@ const MusicPlayerScreen = () => {
       console.log('No preview URL available');
     }
   };
+
   useEffect(() => {
-    // Hide the bottom tab bar when this screen is focused
+   
     navigation.getParent()?.setOptions({
       tabBarStyle: {display: 'none'},
     });

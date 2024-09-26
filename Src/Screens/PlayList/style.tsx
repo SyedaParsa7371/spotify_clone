@@ -5,14 +5,14 @@ const styles = StyleSheet.create({
         flex:1
     },
     headerIcon:{
-        flexDirection: 'row', marginTop: 20, marginHorizontal: 10
+        flexDirection: 'row', marginTop: 20, marginHorizontal: 8
     },
     imageView:{
         marginHorizontal: 10
     },
     imageStyle:{
         width: 300, height: 300,
-        marginHorizontal:40
+        marginHorizontal:23
     },
     sectionStyle:{
         marginTop: 20,
@@ -60,6 +60,9 @@ const styles = StyleSheet.create({
     },
     playCardView:{
         marginTop: 20, marginLeft: 10, flex: 1
+    },
+    headerStyle:{
+        flexDirection:"row"
     }
 
     

@@ -55,7 +55,7 @@ const AlbumList = () => {
       <View style={styles.itemContainer}>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('Play List Screen', { albumId: item.id })
+            navigation.navigate('Play List Screen', { albumId: item.id, albumName: item.name,  })
           }>
           {imageUri ? (
             <Image
