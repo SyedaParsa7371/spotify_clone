@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   settingStyle: {
     paddingLeft: 18,
-    marginTop: '4%',
+    marginTop: '3.7%',
   },
 });
 export default styles;

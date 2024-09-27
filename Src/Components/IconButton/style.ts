@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     width: 28,
   },
   bellimagecontainer: {
-    height: 30,
+    height: 38,
     width: 25,
   },
   spotifycontainer: {
